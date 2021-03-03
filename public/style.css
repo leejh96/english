@@ -5,9 +5,11 @@
     --logo-color: #ac9695;
     --main-background-color: #ebd1d1;
     --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
 }
 body{
     margin: 0;
+    background-color:var(--body-color);
 }
 a{
     text-decoration: none;
@@ -61,32 +63,45 @@ a{
 
 .main_page{ 
     background-color: var(--section-color);
+    margin-left: 20rem;
+    margin-right: 20rem;
 }
 .translate{
-    height: 250px;
-    margin-left: 250px;
-    margin-right: 250px;
+    min-width: 30rem;
+    height: 20rem;
     display: block;
     background-color: var(--main-background-color);
     border: 0.5px solid black;
     border-bottom: 0px;
 }
 .todayandboard{
-    height: 560px;
-    margin-left: 250px;
-    margin-right: 250px;
+    min-width: 30rem;
+    height: 35rem;
     display: flex;
     justify-content: space-between;
     background-color: var(--main-background-color);
-    border: 0.5px solid black;
+    border: 1px solid black;
     border-bottom: 0;
 }
-.board li{
+.board{
     list-style: none;
+    border: 1px solid black;
+    padding: 1.5rem;
+    margin: 0;
+    width: 60rem;
+}
+.board li{
+    padding: 5px
+}
+.board li>a{
     color: black;
 }
+.todayEng{
+    width: 30rem;
+    padding: 1.5rem;
+    border: 1px solid black;
+}
 footer{
-    background-color: var(--section-color);
     padding-bottom: 5px;
     display: flex;
     justify-content: center;
@@ -127,5 +142,11 @@ footer{
     .navbar_menu.active,
     .navbar_link.active{
         display: flex;
+    }
+    .main_page{
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
