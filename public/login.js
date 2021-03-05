@@ -10,7 +10,7 @@ loginButton.addEventListener('click', () => {
     }else if(!password.value){
         alert('비밀번호를 입력하세요');
     }else{
-        const req = {
+        const user = {
             id : id.value,
             password : password.value,
         };
@@ -20,18 +20,17 @@ loginButton.addEventListener('click', () => {
             headers:{
                 "Content-Type" : "application/json"
             },
-            body: JSON.stringify(req)
+            body: JSON.stringify(user)
         })
-        //서버에서 온 응답이 json형식일 경우 프로미스를 사용
-            .then((res, rej) => {
-                console.log(res.body)
-            })
-            .then((res, rej) => {
-                console.log(res);
-            })
-            .catch((rej) => {
-                console.error(rej);
-            })    
+        //res.json()의 반환값은 프로미스
+            .then((res) => {return res.json()})
+            .then((res) => {
+                if (res.success){
+                    location.href = '/';
+                }else{
+                    alert(res.message);
+                }
+            })  
     }
 })
 

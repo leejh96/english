@@ -5,18 +5,17 @@ const router = express.Router();
 const path = require('path');
 
 const user = {
-    id : [123, 456, 789],
-    passward : [123, 456, 789]
+    id : ['123', '456', '789'],
+    passward : ['123', '456', '789']
 }
 
 router.get('/', (req, res, next)=>{
     res.render('login');
 });
 
-router.post('/', (req, res, next)=>{
+router.post('/', (req, res,next)=>{
     const id = req.body.id;
     const password = req.body.password;
-    
     if (user.id.includes(id)){
         const idx = user.id.indexOf(id);
         if(user.passward[idx] === password ){
