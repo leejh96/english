@@ -1,49 +1,24 @@
-// module.exports = (sequelize, DataTypes) =>{
-//     return sequelize.define('user',{
-//         name : {
-//             type: DataTypes.STRING(40),
-//             allowNull: false,
-//         },
-//         age : {
-//             type: DataTypes.INTEGER,
-//             allowNull: false,
-//         },
-//         loginID : {
-//             type: DataTypes.STRING(40),
-//             allowNull: false,
-//             unique: true,
-//         },
-//         create_at: {
-//             type: DataTypes.DATE,
-//             allowNull: false,
-//             defaultValue: sequelize.literal('now()')
-//         }
-//     },{
-//         timestamps: false,
-//         underscored: true
-//     });
-// }
-
-module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('user',{
-        name: {
-            type : DataTypes.STRING(40),
+module.exports = (sequelize, DataTypes) =>{
+    return sequelize.define('user', {
+        name : {
+            type : DataTypes.STRING(15),
             allowNull : false,
         },
-        age :{
-            type: DataTypes.INTEGER,
+        loginId: {
+            type : DataTypes.STRING(20),
             allowNull : false,
+            unique : true,
         },
-        loginID:{
-            type: DataTypes.STRING(40),
-            allowNull: false,
+        password: {
+            type : DataTypes.STRING(30),
+            allowNull : false,
+            unique : true,
         },
-        createAt:{
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: sequelize.literal('now()'),
+        createAt: {
+            type : DataTypes.DATE,
+            defaultValue : sequelize.literal('now()'),
         }
-    },{
-        timestamps : true,
+    }, {
+        timestamps : false
     });
 };

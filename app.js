@@ -6,7 +6,11 @@ const path = require('path');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const signupRouter = require('./routes/signup');
+const {sequelize} = require('./models');
+
 require('dotenv').config();
+sequelize.sync()
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -17,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 app.use((req, res, next)=>{
     res.status(404).send('요청하신 페이지를 찾을 수 없습니다.');
 })

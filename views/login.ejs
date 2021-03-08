@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
     <script src="login.js" defer></script>
-    <title>Document</title>
+    <title>로그인 페이지</title>
 </head>
 <body>
-    <p>ID : <input type="text"  id="loginId" placeholder="아이디를 입력하세요"></p>
-    <p>비밀번호 : <input type="password"  id="loginPassword" placeholder="비밀번호를 입력하세요"></p>
-    <p><input type="submit" id="loginButton" value="로그인"></p>
+    <div class="login">
+        <h1>Login</h1>
+        <input type="text" id= "loginId"name="u" placeholder="Username" required="required" />
+        <input type="password" id="loginPassword" name="p" placeholder="Password" required="required" />
+        <button type="submit" id = "loginButton" class="btn btn-primary btn-block btn-large">Let me in.</button>
+    </div>
 </body>
 </html>
+
+<!-- Copyright (c) 2021 by Tyler Fry (https://codepen.io/frytyler/pen/EGdtg) -->

@@ -31,6 +31,9 @@ loginButton.addEventListener('click', () => {
                     alert(res.message);
                 }
             })  
+            .catch((err)=>{
+                console.error(err);
+            })
     }
 })
 
