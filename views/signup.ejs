@@ -11,54 +11,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Custom Theme files -->
-<link href="css/signup.css" rel="stylesheet" type="text/css" media="all" />
-<!-- //Custom Theme files -->
-<!-- web font -->
-<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
-<!-- //web font -->
+<link rel="stylesheet" href="css/signup.css">
+<script src="/js/signup.js" defer></script>
+<!-- <script src="signup.js" defer></script> -->
 </head>
 <body>
-	<!-- main -->
-	<div class="main-w3layouts wrapper">
-		<h1>회원가입</h1>
-		<div class="main-agileinfo">
-			<div class="agileits-top">
-				<form action="#" method="post">
-					<input class="text" type="text" name="이름" placeholder="이름" required="">
-					<input class="text ID" type="text" name="ID" placeholder="ID" required="">
-					<input class="text" type="password" name="password" placeholder="비밀번호" required="">
-					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
-					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
-							<span>약관에 동의합니다.</span>
-						</label>
-						<div class="clear"> </div>
-					</div>
-					<input type="submit" value="SIGNUP">
-				</form>
-				<p>지금 로그인하기 <a href="/login"> 여기</a>클릭</p>
-			</div>
+	<div class="login-page">
+		<div class="form">
+		  <form class="register-form">
+			<input type="text" id = "createName" placeholder="사용자 이름"/>
+			<input type="text" id = "createId" placeholder="ID"/>
+			<input type="password" id = "createPassword" placeholder="비밀번호"/>
+			<input type="password" id = "confirmPassword" placeholder="비밀번호 확인"/>
+			<button type = "submit" id = "signupButton">회원가입</button>
+			<p class="message"><a href="/login">로그인</a></p>
+		  </form>
 		</div>
-		<!-- copyright -->
-		<div class="colorlibcopy-agile">
-			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
-		</div>
-		<!-- //copyright -->
-		<ul class="colorlib-bubbles">
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-	</div>
-	<!-- //main -->
+	  </div>
 </body>
 </html>

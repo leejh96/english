@@ -5,17 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <script src="login.js" defer></script>
+    <script src="/js/login.js" defer></script>
     <title>로그인 페이지</title>
 </head>
 <body>
-    <div class="login">
-        <h1>Login</h1>
-        <input type="text" id= "loginId"name="u" placeholder="Username" required="required" />
-        <input type="password" id="loginPassword" name="p" placeholder="Password" required="required" />
-        <button type="submit" id = "loginButton" class="btn btn-primary btn-block btn-large">Let me in.</button>
-    </div>
-</body>
-</html>
+    <div class="login-page">
+		<div class="form">
+		  <form class="register-form">
+			<input type="text" placeholder="name"/>
+			<input type="password" placeholder="password"/>
+			<input type="text" placeholder="email address"/>
+			<button>create</button>
+			<p class="message">Already registered? <a href="#">Sign In</a></p>
+		  </form>
+		  <form class="login-form">
+			<input type="text" id = "loginId" placeholder="아이디"/>
+			<input type="password" id = "loginPassword" placeholder="비밀번호"/>
+			<button id = "loginButton">login</button>
+			<p class="message"> <a href="/signup">회원가입</a></p>
+		  </form>
+		</div>
+	  </div>
+	  <!-- Copyright (c) 2021 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy)</body> -->
 
-<!-- Copyright (c) 2021 by Tyler Fry (https://codepen.io/frytyler/pen/EGdtg) -->
+</html>
