@@ -1,10 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const { Word } = require('../models');
+const {Word} = require('../models/');
+router.get('/', async (req, res, next) =>{
+    try {
+        const words = await Word.findAll();
+        console.log(words);
+        console.log(words[1].dataValues.spelling);
 
-router.get('/', (req, res, next) =>{
-    res.render('words');
+        res.render('myword', {words});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+    
 });
+
+
 
 router.post('/', async (req, res, next) => {
     const { spelling, meaning } = req.body;
@@ -14,20 +25,20 @@ router.post('/', async (req, res, next) => {
         console.log(word);
         if (word){
             if (word.spelling === spelling){
-                return res.redirect('/words');
+                return res.redirect('/myword');
             }else{
                 Word.create({
                     spelling,
                     meaning
                 })
-                return res.redirect('/words');
+                return res.redirect('/myword');
             }
         }
         Word.create({
             spelling,
             meaning
         })
-        return res.redirect('/words');
+        return res.redirect('/myword');
     }catch(err){
         console.error(err);
         next(err);
