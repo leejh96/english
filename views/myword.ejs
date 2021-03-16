@@ -6,7 +6,9 @@
     <title>나의 단어장</title>
 </head>
 <body>
-    <div class="wordSave">
+    <a href="/">홈</a>
+
+    <div class="wordTable">
         <table border="1">
             <thead>
                 <tr>
@@ -15,19 +17,17 @@
                 </tr>
             </thead>
             <tbody>
-                <% words.forEach(function(i){ %>
+                <% words.forEach(function(i){ %>                 
                     <tr>
-                        <td><%= i.dataValues.spelling %></td>
+                        <td><a href="/myword/<%= i.dataValues.id %>"><%= i.dataValues.spelling %></a></td>
                         <td><%= i.dataValues.meaning %></td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
-        <form action="/myword" method="POST">
-            <p>단어 : <input type="text" name="spelling"></p>
-            <p>뜻  : <input type="text" name="meaning"></p>
-            <p><button type ="submit">저장하기</button><p>
-        </form>
+    </div>
+    <div>
+        <a href="/addword"><input type="button" value="추가"></a>
     </div>
 </body>
 </html>

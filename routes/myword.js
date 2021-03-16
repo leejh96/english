@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {Word} = require('../models/');
+
 router.get('/', async (req, res, next) =>{
     try {
         const words = await Word.findAll();
-        console.log(words);
-        console.log(words[1].dataValues.spelling);
-
+        console.log(words[0].dataValues.id)
         res.render('myword', {words});
     } catch (error) {
         console.error(error);
@@ -15,16 +14,33 @@ router.get('/', async (req, res, next) =>{
     
 });
 
+router.get('/:id', async(req,res,next)=>{
+    try {
+        const word = await Word.findOne({where : { id : req.params.id}});
+        res.render('worddetail', {word});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+})
 
+router.get('/:id/edit', async(req,res,next)=>{
+    try {
+        const word = await Word.findOne({where : { id : req.params.id}});
+        res.render('edit', {word});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+})
 
 router.post('/', async (req, res, next) => {
     const { spelling, meaning } = req.body;
     console.log(req.body);
     try{
         const word = await Word.findOne({where : { spelling }})
-        console.log(word);
         if (word){
-            if (word.spelling === spelling){
+            if (word.meaning === meaning){
                 return res.redirect('/myword');
             }else{
                 Word.create({
@@ -43,7 +59,29 @@ router.post('/', async (req, res, next) => {
         console.error(err);
         next(err);
     }
+});
+
+router.put('/:id', async(req, res, next)=>{
+    try {
+        const word = await Word.update({
+            spelling : req.body.spelling,
+            meaning : req.body.meaning
+        }, { where : {id : req.params.id} });
+        res.redirect(`/myword/${req.params.id}`);
+    } catch (error) {
+        console.error(err);
+        next(err);
+    }
 
 });
 
+router.delete('/:id', (req, res, next)=>{
+    try {
+        Word.destroy({ where : {id : req.params.id} });
+        res.redirect('/myword');
+    } catch (error) {
+        console.error(err);
+        next(err);
+    }
+});
 module.exports = router;
