@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require('express');
 const router = express.Router();
 const {Word} = require('../models/');
@@ -5,8 +7,11 @@ const {Word} = require('../models/');
 router.get('/', async (req, res, next) =>{
     try {
         const words = await Word.findAll();
-        console.log(words[0].dataValues.id)
-        res.render('myword', {words});
+        if(words){
+            res.render('myword', {words});
+        }else{
+            res.render('myword');
+        }
     } catch (error) {
         console.error(error);
         next(error);

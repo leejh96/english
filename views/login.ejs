@@ -10,15 +10,15 @@
 </head>
 <body>
     <a href="/">홈</a>
-    <div class="login-page">
+	<div class="logout">
+		<input type="hidden">
+	</div>
+    <div class="login">
 		<div class="form">
-			<form class="login-form" method="POST" action="login">
-			<!-- <form class="login-form"> -->
-				<input type="text" name = "loginId"id = "loginId" placeholder="아이디"/>
-				<input type="password" name = "loginPassword" id = "loginPassword" placeholder="비밀번호"/>
-				<button id = "loginButton">login</button>
-				<p class="message"> <a href="/signup">회원가입</a></p>
-			</form>
+			<input type="text" id = "loginId" placeholder="아이디"/>
+			<input type="password" id = "loginPassword" placeholder="비밀번호"/>
+			<button type="submit" id = "loginButton">로그인</button>
+			<p class="message"> <a href="/signup">회원가입</a></p>
 		</div>
 	</div>
 	  <!-- Copyright (c) 2021 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy)</body> -->
