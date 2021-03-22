@@ -17,10 +17,11 @@ module.exports = (passport) =>{
     //실제 DB데이터를 비교함
     //첫번째 매개변수는 serializeUser에서 저장된 user.loginId값을 갖는다.
     passport.deserializeUser((loginId, done)=>{
-        console.log(loginId);
-        User.fineOne({where : {loginId}})
-        .then(user => done(null, user))
+        User.findOne({where : {loginId}})
+        //done의 두번째 인자는 req.user 객체로 전달되도록
+        .then(user => done(null, user)) 
         .catch(err => done(err))
     });
     local(passport);
+
 };

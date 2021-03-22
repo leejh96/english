@@ -18,7 +18,6 @@ const passportConfig = require('./passport/index');
 
 require('dotenv').config();
 sequelize.sync()
-passportConfig(passport);
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -35,8 +34,10 @@ app.use(session({
     saveUninitialized: true, //세션이 필요하기 전까지는 세션을 사용하지 않는다. true로 둘 것
     secret: 'SecretCode', //세션을 암호화 하기위한 비밀코드로 외부에 노출되면 안된다.
 }));
+app.use(flash());
 app.use(passport.initialize());//passport 초기화
 app.use(passport.session());//passport와 session 을 연결
+passportConfig(passport);
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);

@@ -34,22 +34,25 @@ router.get('/', (req, res, next)=>{
 // });
 
 router.post('/', (req, res, next) => {
-    //local은 어떠한 전략으로 로그인 하겠는가를 지정 
+    //local은 어떠한 전략으로 로그인 하겠는가를 지정
     passport.authenticate('local', (err, user, fail)=>{
-        console.log(`1 . ${err}, 2. ${user}, 3. ${fail}`);
         if(err){
             console.error(err);
             return next(err);
         }
         if(!user){
-            console.log(fail.message);
-            // return req.flash(`loginError : ${fail.message}`)
+            return res.redirect('/login');
         }
-        //login은 passport가 추가해주는 것
-        //이렇게 되면 user의 데이터가 session에 저장되고 앞으로 
-        //req.user로 사용자의 정보를 가져올수 있게 된다.
-        // req.login(user)
-        return res.redirect('/');
+        // //login은 passport가 추가해주는 것
+        // //이렇게 되면 user의 데이터가 session에 저장되고 앞으로 
+        // //req.user로 사용자의 정보를 가져올수 있게 된다.
+        return req.login(user, (loginError)=> {
+            if(loginError){
+                console.error(loginError);
+                return next(loginError);
+            }
+            return res.redirect('/');
+        });
     })(req, res, next);
 });
 module.exports = router;

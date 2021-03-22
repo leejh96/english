@@ -22,15 +22,18 @@
             <li>복습하기</li>
             <li>오늘의 단어</li>
         </ul>
+        <% if(!session) {%>
         <ul class="navbar_link">
             <li><a href="/login">로그인</a></li>
             <li><a href="/signup">회원가입</a></li>
             <li><i class="fab fa-google"></i></li>
             <li><i class="fab fa-facebook"></i></li>
         </ul>
+        <%}else{%>
         <ul class="navbar_logout">
-            <li><a href="/">로그아웃</a></li>
+            <li><a href="/logout">로그아웃</a></li>
         </ul>
+        <%}%>
         <a href="#" class="navbar_toggleBtn">
             <i class="fas fa-bars"></i>
         </a>
