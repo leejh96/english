@@ -23,6 +23,7 @@ loginButton.addEventListener('click', ()=>{
         .then(res => res.json())
         .then(res => {
             if(res.success){
+                
                 location.href = '/';
             }else{
                 alert(res.message);

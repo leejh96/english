@@ -60,6 +60,9 @@ a{
     display: none;
     font-size: 24px;
 }
+.navbar_logout{
+    display: none;
+}
 
 .main_page{ 
     background-color: var(--section-color);

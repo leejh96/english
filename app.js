@@ -10,11 +10,15 @@ const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
 const mywordRouter = require('./routes/myword');
 const addwordRouter = require('./routes/addword');
-
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
 const {sequelize} = require('./models');
+const passportConfig = require('./passport/index');
 
 require('dotenv').config();
 sequelize.sync()
+passportConfig(passport);
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -24,7 +28,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+//req.session 를 사용할 수 있도록 함
+//기본적으로 세션은 메모리에 저장되기 때문에 서버를 재가동 시키면 데이터가 날아간다.
+app.use(session({
+    resave : false, //session 데이터가 바뀌기 전까지는 재저장 하지않는다. false로 둘 것
+    saveUninitialized: true, //세션이 필요하기 전까지는 세션을 사용하지 않는다. true로 둘 것
+    secret: 'SecretCode', //세션을 암호화 하기위한 비밀코드로 외부에 노출되면 안된다.
+}));
+app.use(passport.initialize());//passport 초기화
+app.use(passport.session());//passport와 session 을 연결
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
