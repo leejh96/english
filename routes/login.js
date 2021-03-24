@@ -43,9 +43,9 @@ router.post('/', (req, res, next) => {
         if(!user){
             return res.redirect('/login');
         }
-        // //login은 passport가 추가해주는 것
-        // //이렇게 되면 user의 데이터가 session에 저장되고 앞으로 
-        // //req.user로 사용자의 정보를 가져올수 있게 된다.
+        //login은 passport가 추가해주는 것
+        //이렇게 되면 user의 데이터가 session에 저장되고 앞으로 
+        //req.user로 사용자의 정보를 가져올수 있게 된다.
         return req.login(user, (loginError)=> {
             if(loginError){
                 console.error(loginError);

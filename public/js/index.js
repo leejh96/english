@@ -8,5 +8,5 @@ const logout = document.querySelector('.navbar_logout');
 toggleBtn.addEventListener('click', ()=>{
     navbarMenu.classList.toggle('active');
     loginLinks.classList.toggle('active');
-    logout.classList.toggle('unactive');
+    logout.classList.toggle('active');
 });

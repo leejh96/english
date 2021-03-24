@@ -74,8 +74,8 @@ router.put('/:id', async(req, res, next)=>{
         }, { where : {id : req.params.id} });
         res.redirect(`/myword/${req.params.id}`);
     } catch (error) {
-        console.error(err);
-        next(err);
+        console.error(error);
+        next(error);
     }
 
 });
@@ -85,8 +85,8 @@ router.delete('/:id', (req, res, next)=>{
         Word.destroy({ where : {id : req.params.id} });
         res.redirect('/myword');
     } catch (error) {
-        console.error(err);
-        next(err);
+        console.error(error);
+        next(error);
     }
 });
 module.exports = router;

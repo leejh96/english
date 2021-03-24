@@ -1,0 +1,20 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>글 제목</p>
+    <p><%= post.dataValues.title%></p>
+    <p>작성자</p>
+    <p><%= post.dataValues.author%></p>
+    <p>글 내용</p>
+    <p><%= post.dataValues.text%></p>
+    <a href="/board/<%= post.dataValues.id%>/edit"><input type="button" value="수정"></a>
+    <form action="/board/<%=post.dataValues.id%>?_method=delete" method="post">
+        <input type="submit" value="삭제">
+    </form>
+</body>
+</html>
