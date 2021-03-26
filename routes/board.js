@@ -3,12 +3,18 @@ const router = express.Router();
 const { Board } = require('../models');
 router.get('/', async(req,res,next)=>{
     const post = await Board.findAll();
-    res.render('board',{post});
+    const session = req.user;
+    const data = {post, session}
+    res.render('board',{data});
 });
 
 router.get('/:id', async(req, res, next)=>{
     const post = await Board.findOne({where : {id : req.params.id}});
-    res.render('post', {post});
+    const session = req.user;
+    const data = {post, session}
+    console.log(post.dataValues);
+    console.log(session.dataValues);
+    res.render('post', {data});
 });
 router.get('/:id/edit', async (req, res, next)=>{
     const id = req.params.id;

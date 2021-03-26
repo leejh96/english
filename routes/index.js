@@ -2,12 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
-const path = require('path');
+const { Board } = require('../models');
 
-router.get('/', (req, res, next)=>{
-    console.log(req.user);
+router.get('/', async(req, res, next)=>{
+    const post = await Board.findAll();
     const session = req.user;
-    res.render('index', {session});
+    const data = {post, session}
+    if (session){
+        console.log(session.name)
+    }
+    res.render('index', {data});
 });
 
 router.get('/logout', (req, res, next) => {

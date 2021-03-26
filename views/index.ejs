@@ -18,11 +18,15 @@
             <a href="/">오늘의 단어</a>
         </div>
         <ul class="navbar_menu">
-            <li><a href="/myword">나의 단어장</a></li>
+            <% if(!data.session) {%>
+                <li><a href="/login">나의 단어장</a></li>
+            <%}else{%>
+                <li><a href="/myword">나의 단어장</a></li>
+            <%}%>
             <li>복습하기</li>
             <li>오늘의 단어</li>
         </ul>
-        <% if(!session) {%>
+        <% if(!data.session) {%>
         <ul class="navbar_link">
             <li><a href="/login">로그인</a></li>
             <li><a href="/signup">회원가입</a></li>
@@ -45,11 +49,13 @@
                 <h3>질문게시판</h3>
                 <div><a href="/board">더보기</a></div>
                 <ul>
-                    <li><a href="#">질문있어요!</a></li>
-                    <li><a href="#">질문있어요!</a></li>
-                    <li><a href="#">질문있어요!</a></li>
-                    <li><a href="#">질문있어요!</a></li>
-                    <li><a href="#">질문있어요!</a></li>
+                    <%data.post.forEach(function(i){%>
+                        <% if(!data.session) {%>
+                            <li><a href="/login"><%=i.dataValues.title%></a></li>
+                        <%}else{%>
+                            <li><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></li>
+                        <%}%>
+                    <%})%>
                 </ul>
             </div>
             <div class="todayEng">
