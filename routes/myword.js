@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const { Word, User } = require('../models/');
+const user = require('../models/user');
 
 router.get('/', async (req, res, next) =>{
     if(!req.user){
@@ -12,7 +13,7 @@ router.get('/', async (req, res, next) =>{
             const words = await Word.findAll({
                 include : [{
                     model : User,
-                    where : { id : req.user.id}
+                    where : { id : req.user.id }
                 }]
             });
             if(words){
@@ -49,29 +50,27 @@ router.get('/:id/edit', async(req,res,next)=>{
 
 router.post('/', async (req, res, next) => {
     const { spelling, meaning } = req.body;
-    console.log(req.body);
     try{
-        const word = await Word.findOne({where : { spelling }});
+        const word = await Word.findOne({
+            where : { spelling, meaning },
+            include : [{model: User}]
+        });
         if (word){
-            if (word.meaning === meaning){
+            console.log(word);
+            if(word.users.includes(req.user.id)){
                 return res.redirect('/myword');
             }else{
-                createWord = await Word.create({
-                    spelling,
-                    meaning
-                });
-
-                await createWord.addUser(req.user.id);
+                await word.addUser(req.user.id);
                 return res.redirect('/myword');
             }
+        }else{
+            const createWord = await Word.create({
+                spelling,
+                meaning
+            });
+            await createWord.addUser(req.user.id);
+            return res.redirect('/myword');
         }
-        const createWord = await Word.create({
-            spelling,
-            meaning
-        })
-        //생성한 단어를 저장한 유저는 로그인한 유저(다대다)
-        await createWord.addUser(req.user.id);
-        return res.redirect('/myword');
     }catch(err){
         console.error(err);
         next(err);

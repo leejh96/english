@@ -14,8 +14,8 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Word = require('./word')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
 
-db.User.belongsToMany(db.Word, {through: 'matching'});
-db.Word.belongsToMany(db.User, {through: 'matching'});
+db.User.belongsToMany(db.Word, {through: 'userBoard'});
+db.Word.belongsToMany(db.User, {through: 'userBoard'});
 
 db.User.hasMany(db.Board);
 db.Board.belongsTo(db.User);
