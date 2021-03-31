@@ -38,7 +38,7 @@ router.get('/:id', async(req,res,next)=>{
     }
 })
 
-router.get('/:id/edit', async(req,res,next)=>{
+router.get('/:id/edit', async(req, res, next)=>{
     try {
         const word = await Word.findOne({where : { id : req.params.id}});
         res.render('edit', {word});
@@ -56,7 +56,6 @@ router.post('/', async (req, res, next) => {
             include : [{model: User}]
         });
         if (word){
-            console.log(word);
             if(word.users.includes(req.user.id)){
                 return res.redirect('/myword');
             }else{

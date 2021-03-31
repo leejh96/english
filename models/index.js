@@ -13,11 +13,14 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Word = require('./word')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
+db.Comment = require('./comment')(sequelize, Sequelize);
 
-db.User.belongsToMany(db.Word, {through: 'userBoard'});
-db.Word.belongsToMany(db.User, {through: 'userBoard'});
+db.User.belongsToMany(db.Word, {through: 'userWord'});
+db.Word.belongsToMany(db.User, {through: 'userWord'});
 
 db.User.hasMany(db.Board);
 db.Board.belongsTo(db.User);
 
+db.Board.hasMany(db.Comment);
+db.Comment.belongsTo(db.Board);
 module.exports = db;

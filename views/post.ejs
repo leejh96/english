@@ -6,19 +6,40 @@
     <title>게시글 <%= data.post.dataValues.title%></title>
 </head>
 <body>
-    <a href="/">홈</a>
-    <p>글 제목</p>
-    <p><%= data.post.dataValues.title%></p>
-    <p>작성자</p>
-    <p><%= data.post.dataValues.author%></p>
-    <p>글 내용</p>
-    <p><%= data.post.dataValues.text%></p>
-    <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
-        <a href="/board/<%= data.post.dataValues.id%>/edit"><input type="button" value="수정"></a>
-        <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
-            <input type="submit" value="삭제">
-        </form>
-    <%}%>
+    <div>
+        <a href="/">홈</a>
+        <p>글 제목</p>
+        <p><%= data.post.dataValues.title%></p>
+        <p>작성자</p>
+        <p><%= data.post.dataValues.author%></p>
+        <p>글 내용</p>
+        <p><%= data.post.dataValues.text%></p>
+        <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
+            <a href="/board/<%= data.post.dataValues.id%>/edit"><input type="button" value="수정"></a>
+            <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
+                <input type="submit" value="삭제">
+            </form>
+        <%}%>
+    </div>
+
+    <div>
+        <%if(data.comment){%>
+            <div>
+                <p><h3>comment</h3></p>
+                <% for(let i = 0; i < data.comment.length; i++){ %>
+                    <p>작성자 : <%= data.comment[i].dataValues.nick %></p>
+                    <p>댓글 : <%= data.comment[i].dataValues.text %></p>
+                <%}%>
+            </div>
+        <%}%>
+        <div>
+            <p><h3>댓글 작성하기</h3></p>
+            <form action="/board/<%= data.post.dataValues.id%>" method="post">
+                <p><textarea name="commentText" id="" cols="30" rows="10"></textarea></p>
+                <p><input type="submit" value="등록"></p>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

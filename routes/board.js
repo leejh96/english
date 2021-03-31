@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Board } = require('../models');
+const { Board, Comment } = require('../models');
+const board = require('../models/board');
 router.get('/', async(req,res,next)=>{
     const post = await Board.findAll();
     const session = req.user;
@@ -10,10 +11,10 @@ router.get('/', async(req,res,next)=>{
 
 router.get('/:id', async(req, res, next)=>{
     const post = await Board.findOne({where : {id : req.params.id}});
+    const comment = await Comment.findAll();
     const session = req.user;
-    const data = {post, session}
-    console.log(post.dataValues);
-    console.log(session.dataValues);
+    console.log(comment);
+    const data = {post, session, comment};
     res.render('post', {data});
 });
 router.get('/:id/edit', async (req, res, next)=>{
@@ -22,18 +23,40 @@ router.get('/:id/edit', async (req, res, next)=>{
 });
 
 router.post("/", async(req, res, next)=>{
-    Board.create({
-        title : req.body.title,
-        author : req.user.dataValues.loginId,
-        text : req.body.text,
-        userId : req.user.dataValues.id
-    })
-    .then(user => {return res.redirect('/board')})
-    .catch(err =>{
-        console.error(err);
-        next(err);
-    })
-})
+    try {
+        await Board.create({
+            title : req.body.title,
+            author : req.user.dataValues.nick,
+            text : req.body.text,
+            userId : req.user.dataValues.id
+        })
+        return res.redirect('/board')
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+});
+
+router.post('/:id', async(req, res, next)=>{
+    try {
+        nick = req.user.nick;
+        text = req.body.commentText;
+        loginId = req.user.loginId;
+        boardId = req.params.id;
+        console.log(nick, text, loginId, boardId);
+        await Comment.create({
+            loginId,
+            nick,
+            text,
+            boardId,
+        });
+        return res.redirect(`/board/${boardId}`);
+
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+});
 
 router.put('/:id/edit', async (req, res, next)=>{
     console.log(req.body.title, req.body.text);

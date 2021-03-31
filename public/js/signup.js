@@ -1,13 +1,13 @@
 "use strict";
 
-const username = document.getElementById('name');
+const usernick = document.getElementById('nick');
 const id = document.getElementById('id');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('confirmPassword');
 const signupButton = document.getElementById('signupButton');
 signupButton.addEventListener('click', () => {
-    if ( !username.value ){
-        alert('이름을 입력하세요');
+    if ( !usernick.value ){
+        alert('닉네임을 입력하세요');
     }else if( !id.value ){
         alert('아이디를 입력하세요')
     }else if( !password.value ){
@@ -18,7 +18,7 @@ signupButton.addEventListener('click', () => {
         alert('입력한 비밀번호가 다릅니다');
     }else{
         const user = {
-            name : username.value,
+            nick : usernick.value,
             id : id.value,
             password : password.value,
         };
