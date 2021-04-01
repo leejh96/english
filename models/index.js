@@ -21,6 +21,8 @@ db.Word.belongsToMany(db.User, {through: 'userWord'});
 db.User.hasMany(db.Board);
 db.Board.belongsTo(db.User);
 
-db.Board.hasMany(db.Comment);
+db.Board.hasMany(db.Comment,{
+    onDelete: 'CASCADE'
+});
 db.Comment.belongsTo(db.Board);
 module.exports = db;

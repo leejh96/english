@@ -1,8 +1,11 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/post.css">
+    <script src="/js/post.js" defer></script>
     <title>게시글 <%= data.post.dataValues.title%></title>
 </head>
 <body>
@@ -30,17 +33,19 @@
                     <p>작성자 : <%= data.comment[i].dataValues.nick %></p>
                     <p>댓글 : <%= data.comment[i].dataValues.text %></p>
                     <%if(data.comment[i].dataValues.loginId === data.session.dataValues.loginId){%>
-                        <button>수정하기</button>
-                        <form action="/board/<%= data.post.id%>?_method=put" method="post">
-                            <textarea name="text" id="" cols="30" rows="10"></textarea>
-                            <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
-                            <input type="submit" value="수정">
-                        </form>
-                        <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
-                            <input type="submit" value="삭제하기">
-                            <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
-                            <input type="hidden" name="postId" value = "<%= data.post.dataValues.id%>">
-                        </form>
+                        <button class="updateBtn">수정하기</button>
+                        <div class="updateForm">
+                            <form action="/board/<%= data.post.id%>?_method=put" method="post">
+                                <textarea name="text" id="" cols="30" rows="10"></textarea>
+                                <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                                <input type="submit" value="수정">
+                            </form>
+                            <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
+                                <input type="submit" value="삭제하기">
+                                <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                                <input type="hidden" name="postId" value = "<%= data.post.dataValues.id%>">
+                            </form>
+                        </div>
                     <%}%>
                 <%}%>
             </div>
