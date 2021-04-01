@@ -1,0 +1,32 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복습하기</title>
+</head>
+<body>
+    <a href="/">홈</a>
+
+    <div class="wordTable">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>단어</th>
+                    <th>뜻</th>
+                    <th>O/X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(let i = 0; i < words.length; i++){%>
+                    <tr>
+                        <td><%=words[i].spelling%></td>
+                        <td><input type="text" name="meanBox" id=""></td>
+                        <td><input type="submit" value="확인"></td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { Board, Comment } = require('../models');
-const board = require('../models/board');
 router.get('/', async(req,res,next)=>{
     const post = await Board.findAll();
     const session = req.user;
@@ -13,7 +12,6 @@ router.get('/:id', async(req, res, next)=>{
     const post = await Board.findOne({where : {id : req.params.id}});
     const comment = await Comment.findAll();
     const session = req.user;
-    console.log(comment);
     const data = {post, session, comment};
     res.render('post', {data});
 });
@@ -58,6 +56,20 @@ router.post('/:id', async(req, res, next)=>{
     }
 });
 
+router.put('/:id', async (req, res, next)=>{
+    console.log(req.body);
+    commentId = req.body.commentId;
+    try {
+        await Comment.update({
+            text : req.body.text
+        }, { where : {id : commentId} })
+        return res.redirect(`/board/${req.params.id}`);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
 router.put('/:id/edit', async (req, res, next)=>{
     console.log(req.body.title, req.body.text);
     Board.update({
@@ -71,9 +83,9 @@ router.put('/:id/edit', async (req, res, next)=>{
         console.error(error);
         next(error);
     })
-})
+});
 
-router.delete('/:id', (req, res, next)=>{
+router.delete('/:id', async (req, res, next)=>{
     try {
         Board.destroy({ where : {id : req.params.id} });
         return res.redirect('/board');
@@ -82,4 +94,14 @@ router.delete('/:id', (req, res, next)=>{
         next(error);
     }
 });
+
+router.delete('/:id/deleteComment', async(req, res, next)=>{
+    try {
+        await Comment.destroy({ where : {id : req.body.commentId} });
+        return res.redirect(`/board/${req.body.postId}`);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+})
 module.exports = router;

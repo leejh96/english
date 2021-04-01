@@ -29,6 +29,19 @@
                 <% for(let i = 0; i < data.comment.length; i++){ %>
                     <p>작성자 : <%= data.comment[i].dataValues.nick %></p>
                     <p>댓글 : <%= data.comment[i].dataValues.text %></p>
+                    <%if(data.comment[i].dataValues.loginId === data.session.dataValues.loginId){%>
+                        <button>수정하기</button>
+                        <form action="/board/<%= data.post.id%>?_method=put" method="post">
+                            <textarea name="text" id="" cols="30" rows="10"></textarea>
+                            <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                            <input type="submit" value="수정">
+                        </form>
+                        <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
+                            <input type="submit" value="삭제하기">
+                            <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                            <input type="hidden" name="postId" value = "<%= data.post.dataValues.id%>">
+                        </form>
+                    <%}%>
                 <%}%>
             </div>
         <%}%>
