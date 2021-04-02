@@ -22,7 +22,6 @@ router.post('/', async (req, res, next)=> {
         spelling : req.body.spelling,
         meaning : req.body.meaning
     }})
-    console.log(word);
     if(!word){
         return res.json({
             success : false

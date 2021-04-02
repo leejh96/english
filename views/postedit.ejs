@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="/js/postedit.js" defer></script>
+    <title>글 수정</title>
 </head>
 
 <body>
 	<a href="/">홈</a>
-	<form action="/board/<%=id%>/edit?_method=put" method="post">
-        <p><input type="text" id="title" name="title" placeholder="글 제목"/></p>
-        <p><textarea name="text" id="text" cols="100" rows="100"></textarea></p>
-        <p><button type="submit" id ="postEdit">수정하기</button></p>
-    </form>
+    <div>
+        <p><input type="text" id="title" name="title" placeholder="제목을 입력하세요"autocomplete="off"/></p>
+        <p><textarea name="text" id="text" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea></p>
+        <p><input type="submit" id ="postEdit" value="수정"></p>
+    </div> 
 </body>
 </html>

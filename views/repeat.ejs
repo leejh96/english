@@ -23,7 +23,7 @@
                 <%for(let i = 0; i < words.length; i++){%>
                     <tr>
                         <td class="spelling"><%=words[i].spelling%></td>
-                        <td class= "meanBoxSquare"><input type="text" name="meanBox" class="meanBox"></td>
+                        <td class= "meanBoxSquare"><input type="text" name="meanBox" class="meanBox" autocomplete="off"></td>
                         <td class= "confirmBtnSquare"><input type="button" value="확인" class="confirmBtn"></td>
                     </tr>
                 <%}%>

@@ -56,11 +56,16 @@ router.post('/', async (req, res, next) => {
             include : [{model: User}]
         });
         if (word){
-            if(word.users.includes(req.user.id)){
-                return res.redirect('/myword');
+            if(word.users[0].dataValues.id === req.user.id){
+                return res.json({
+                    success : false,
+                    message : '이미 존재하는 단어입니다'
+                });
             }else{
                 await word.addUser(req.user.id);
-                return res.redirect('/myword');
+                return res.json({
+                    success : true
+                });
             }
         }else{
             const createWord = await Word.create({
@@ -68,11 +73,13 @@ router.post('/', async (req, res, next) => {
                 meaning
             });
             await createWord.addUser(req.user.id);
-            return res.redirect('/myword');
+            return res.json({
+                success : true
+            });
         }
-    }catch(err){
-        console.error(err);
-        next(err);
+    }catch(error){
+        console.error(error);
+        next(error);
     }
 });
 
@@ -82,7 +89,15 @@ router.put('/:id', async(req, res, next)=>{
             spelling : req.body.spelling,
             meaning : req.body.meaning
         }, { where : {id : req.params.id} });
-        res.redirect(`/myword/${req.params.id}`);
+        if(word){
+            res.json({
+                success : true
+            });
+        }else{
+            res.json({
+                success : false
+            });
+        }
     } catch (error) {
         console.error(error);
         next(error);

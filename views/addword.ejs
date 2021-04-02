@@ -3,14 +3,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/addword.js" defer></script>
     <title>단어 추가</title>
 </head>
 <body>
     <a href="/">홈</a>
-    <form action="/myword" method="POST">
-        <p>단어 : <input type="text" name="spelling"></p>
-        <p>뜻  : <input type="text" name="meaning"></p>
-        <p><button type ="submit">저장하기</button><p>
-    </form>
+    <div>
+        <p>단어 : <input type="text" name="spelling" id="spelling" autocomplete="off"></p>
+        <p>뜻  : <input type="text" name="meaning" id="meaning" autocomplete="off"></p>
+        <p><input type ="submit" value= "저장" id="Btn"><p>
+    </div>
+
 </body>
 </html>

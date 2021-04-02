@@ -5,9 +5,9 @@ const loginButton = document.getElementById('loginButton');
 
 loginButton.addEventListener('click', ()=>{
     if(!id.value){
-        alert('아이디를 입력하세요');
+        return alert('아이디를 입력하세요');
     }else if(!password.value){
-        alert('비밀번호를 입력하세요');
+        return alert('비밀번호를 입력하세요');
     }else{
         const user = {
             id : id.value,
@@ -26,6 +26,7 @@ loginButton.addEventListener('click', ()=>{
                 location.href = '/';
             }else{
                 alert(res.message);
+                location.href ='/login';
             }
         })
     }

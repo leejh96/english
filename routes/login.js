@@ -10,29 +10,6 @@ router.get('/', (req, res, next)=>{
     res.render('login');
 });
 
-//passport 없이 구현
-// router.post('/', async (req, res,next)=>{
-//     const id = req.body.id;
-//     const password = req.body.password;
-//     User.findOne({ where : { loginId : id }})
-//     .then((user) => {
-//         //bcrypt로 암호화된 값 비교
-//         if (!bcrypt.compareSync( password ,user.password )) {
-//             return res.json({
-//                 success : false,
-//                 message : '로그인에 실패하셨습니다.'
-//             });
-//         }
-//         return res.json({
-//             success : true
-//         });
-//     })
-//     .catch((err)=>{
-//         console.error(err);
-//     })  
-    
-// });
-
 router.post('/', (req, res, next) => {
     //local은 어떠한 전략으로 로그인 하겠는가를 지정
     passport.authenticate('local', (err, user, fail)=>{

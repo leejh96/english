@@ -49,15 +49,21 @@ router.post('/:id', async(req, res, next)=>{
         text = req.body.commentText;
         loginId = req.user.loginId;
         boardId = req.params.id;
-        console.log(nick, text, loginId, boardId);
-        await Comment.create({
+        const comment = await Comment.create({
             loginId,
             nick,
             text,
             boardId,
         });
-        return res.redirect(`/board/${boardId}`);
-
+        if(comment){
+            return res.json({
+                success : true
+            });
+        }else{
+            return res.json({
+                success : false
+            });
+        }
     } catch (error) {
         console.error(error);
         return next(error);
@@ -65,13 +71,21 @@ router.post('/:id', async(req, res, next)=>{
 });
 
 router.put('/:id', async (req, res, next)=>{
-    console.log(req.body);
     commentId = req.body.commentId;
     try {
-        await Comment.update({
+        const comment = await Comment.update({
             text : req.body.text
-        }, { where : {id : commentId} })
-        return res.redirect(`/board/${req.params.id}`);
+        }, { where : {id : commentId} });
+
+        if(comment){
+            return res.json({
+                success : true
+            });
+        }else{
+            return res.json({
+                success : false
+            });
+        }
     } catch (error) {
         console.error(error);
         next(error);
@@ -79,18 +93,24 @@ router.put('/:id', async (req, res, next)=>{
 });
 
 router.put('/:id/edit', async (req, res, next)=>{
-    console.log(req.body.title, req.body.text);
-    Board.update({
-        title : req.body.title,
-        text : req.body.text
-    }, { where : {id : req.params.id} })
-    .then((post)=>{
-        return res.redirect(`/board/${req.params.id}`);
-    })
-    .catch (error => {
+    try {
+        const post = await Board.update({
+            title : req.body.title,
+            text : req.body.text
+        }, { where : {id : req.params.id} })
+        if(post){
+            res.json({
+                success : true
+            });
+        }else{
+            res.json({
+                success : false
+            });
+        }
+    } catch (error) {
         console.error(error);
         next(error);
-    })
+    }
 });
 
 router.delete('/:id', async (req, res, next)=>{

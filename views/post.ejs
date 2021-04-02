@@ -26,7 +26,7 @@
     </div>
 
     <div>
-        <%if(data.comment){%>
+        <%if(data.comment.length !== 0){%>
             <div>
                 <p><h3>comment</h3></p>
                 <% for(let i = 0; i < data.comment.length; i++){ %>
@@ -35,11 +35,11 @@
                     <%if(data.comment[i].dataValues.loginId === data.session.dataValues.loginId){%>
                         <button class="updateBtn">수정하기</button>
                         <div class="updateForm">
-                            <form action="/board/<%= data.post.id%>?_method=put" method="post">
-                                <textarea name="text" id="" cols="30" rows="10"></textarea>
-                                <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
-                                <input type="submit" value="수정">
-                            </form>
+                            <div>
+                                <textarea name="text" class="text" cols="30" rows="10"></textarea>
+                                <input type="hidden" class="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                                <input type="submit" class="commentBtn"value="수정">
+                            </div>
                             <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
                                 <input type="submit" value="삭제하기">
                                 <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
@@ -52,10 +52,11 @@
         <%}%>
         <div>
             <p><h3>댓글 작성하기</h3></p>
-            <form action="/board/<%= data.post.dataValues.id%>" method="post">
-                <p><textarea name="commentText" id="" cols="30" rows="10"></textarea></p>
-                <p><input type="submit" value="등록"></p>
-            </form>
+            <div>
+                <p><textarea name="commentText" id="commentText" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea></p>
+                <p><input type="submit" id="commentTextBtn" value="등록"></p>
+            </div>
+            
         </div>
     </div>
 

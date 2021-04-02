@@ -26,6 +26,7 @@ postCreate.addEventListener('click', ()=>{
             location.href = '/board';
         }else{
             alert('글 작성을 실패하였습니다.');
+            location.href = '/addpost';
         }
     })
 });
