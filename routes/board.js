@@ -22,13 +22,21 @@ router.get('/:id/edit', async (req, res, next)=>{
 
 router.post("/", async(req, res, next)=>{
     try {
-        await Board.create({
+        const post = await Board.create({
             title : req.body.title,
             author : req.user.dataValues.nick,
             text : req.body.text,
             userId : req.user.dataValues.id
-        })
-        return res.redirect('/board')
+        });
+        if(post){
+            return res.json({
+                success : true
+            });
+        }else{
+            return res.json({
+                success : false
+            });
+        }
     } catch (error) {
         console.error(error);
         return next(error);

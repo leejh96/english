@@ -59,11 +59,30 @@
                 </ul>
             </div>
             <div class="todayEng">
-                apple<br>
-                사과
-                <div class="eng_syntax">
-                    i'm eating an apple
-                </div>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>단어</th>
+                            <th>뜻</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <%let count = 0;%>
+                        <%setInterval(()=>{%>
+                            <%console.log(data.words[count].dataValues.spelling)%>
+                            <%console.log(data.words[count].dataValues.meaning)%>
+                            <td><%= data.words[count].dataValues.spelling %></a></td>
+                            <td><%= data.words[count].dataValues.meaning %></td>
+                            <%count += 1%>
+                            <%if(count === data.words.length){%>
+                                <%count = 0;%>
+                            <%}%>
+                        <%},5000)%>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
 
         </div>

@@ -3,17 +3,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="/js/addpost.js" defer></script>
+    <title>게시물 작성</title>
 </head>
 
 <body>
 	<a href="/">홈</a>
-	<form action="/board" method="post">
+    <div>
         <p>글 제목</p>
-        <p><input type="text" id="title" name="title" placeholder="글 제목"/></p>
+        <p><input type="text" id="title" name="title" placeholder="제목을 입력하세요"/></p>
         <p>글 내용</p>
-        <p><textarea name="text" id="text" cols="100" rows="100"></textarea></p>
-        <p><button type="submit" id ="postCreate">글작성</button></p>
-    </form>
+        <p><textarea name="text" id="text" cols="100" rows="10" placeholder="내용을 입력하세요"></textarea></p>
+        <p><input type="submit" id ="postCreate" value="글작성"></p>
+    </div>
+
 </body>
 </html>

@@ -2,15 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
-const { Board } = require('../models');
+const { Board, Word } = require('../models');
 
 router.get('/', async(req, res, next)=>{
     const post = await Board.findAll();
+    const words = await Word.findAll();
     const session = req.user;
-    const data = {post, session}
-    if (session){
-        console.log(session.name)
-    }
+    const data = {post, session, words};
     res.render('index', {data});
 });
 
@@ -21,6 +19,5 @@ router.get('/logout', (req, res, next) => {
         res.redirect('/');
     });
 });
-
 
 module.exports = router;
