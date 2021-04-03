@@ -14,6 +14,7 @@
         <table border="1">
             <thead>
                 <tr>
+                    <th>번호</th>
                     <th>단어</th>
                     <th>뜻</th>
                     <th>O/X</th>
@@ -21,11 +22,22 @@
             </thead>
             <tbody>
                 <%for(let i = 0; i < words.length; i++){%>
-                    <tr>
-                        <td class="spelling"><%=words[i].spelling%></td>
-                        <td class= "meanBoxSquare"><input type="text" name="meanBox" class="meanBox" autocomplete="off"></td>
-                        <td class= "confirmBtnSquare"><input type="button" value="확인" class="confirmBtn"></td>
-                    </tr>
+                    <%if(parseInt(i/10) % 2 === 0){%>
+                        <tr>
+                            <td><%=i+1%></td>
+                            <td class="spelling"><%=words[i].spelling%></td>
+                            <td class= "meanBoxSquare"><input type="text" class="meanBox" autocomplete="off"></td>
+                            <td class= "confirmBtnSquare"><input type="button" value="확인" class="confirmBtn"></td>
+                        </tr>
+                    <%}else{%>
+                        <tr>
+                            <td><%=i+1%></td>
+                            <td class="spellBoxSquare"><input type="text" class="spellBox" autocomplete="off"></td>
+                            <td class= "meaning"><%=words[i].meaning%></td>
+                            <td class= "confirmBtnSquare2"><input type="button" value="확인" class="confirmBtn2"></td>
+                        </tr>
+                    <%}%>
+
                 <%}%>
             </tbody>
         </table>

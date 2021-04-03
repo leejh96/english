@@ -48,15 +48,32 @@
             <div class="main_board">
                 <h3>질문게시판</h3>
                 <div><a href="/board">더보기</a></div>
-                <ul>
-                    <%data.post.forEach(function(i){%>
-                        <% if(!data.session) {%>
-                            <li><a href="/login"><%=i.dataValues.title%></a></li>
-                        <%}else{%>
-                            <li><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></li>
-                        <%}%>
-                    <%})%>
-                </ul>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let count = 1 %>
+                        <%data.post.forEach(function(i){%>
+                            <tr>
+                                <td><%=count%></td>
+                                <% if(!data.session) {%>
+                                    <td><a href="/login"><%=i.dataValues.title%></a></td>
+                                    <td><%= i.dataValues.author%></td>
+                                <%}else{%>
+                                    <td><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></td>
+                                    <td><%= i.dataValues.author%></td>
+                                <%}%>
+                            </tr>
+                            <% count += 1 %>
+                        <%})%>
+                    </tbody>
+                </table>
+
             </div>
             <div class="todayEng">
                 <table border="1">
@@ -67,20 +84,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <%for(let i = 0; i<data.words.length; i++){%>
                         <tr>
-                            <%for(let i = 0; i<data.words.length; i++){%>
-                                <td>
-                                    <%setTimeout(()=>{%>
-                                    <%=data.words[i].dataValues.spelling%></td>
-                                    <%},1000)%>
-                                </td>
-                                <td>
-                                    <%setTimeout(()=>{%>
-                                    <%=data.words[i].dataValues.meaning%></td>
-                                    <%},1000)%>
-                                </td>
-                            <%}%>
+                            <td>
+                                <%=data.words[i].dataValues.spelling%></td>
+                            </td>
+                            <td>
+                                <%=data.words[i].dataValues.meaning%></td>
+                            </td>
                         </tr>
+                        <%}%>
 
                     </tbody>
                 </table>

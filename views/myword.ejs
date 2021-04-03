@@ -13,16 +13,20 @@
         <table border="1">
             <thead>
                 <tr>
+                    <th>번호</th>
                     <th>단어</th>
                     <th>뜻</th>
                 </tr>
             </thead>
             <tbody>
+                <%let count = 1%>
                 <% words.forEach(function(i){ %>                 
                     <tr>
+                        <td><%=count%></td>
                         <td><a href="/myword/<%= i.dataValues.id %>"><%= i.dataValues.spelling %></a></td>
                         <td><%= i.dataValues.meaning %></td>
                     </tr>
+                    <%count += 1%>
                 <% }) %>
             </tbody>
         </table>
