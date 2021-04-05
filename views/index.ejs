@@ -84,17 +84,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%for(let i = 0; i<data.words.length; i++){%>
                         <tr>
-                            <td>
-                                <%=data.words[i].dataValues.spelling%></td>
+                            <td id="spelling">
                             </td>
-                            <td>
-                                <%=data.words[i].dataValues.meaning%></td>
+                            <td id="meaning">
                             </td>
                         </tr>
-                        <%}%>
-
                     </tbody>
                 </table>
             </div>
@@ -104,5 +99,6 @@
     <footer>
         제작자 : 이주혁
     </footer>
+
 </body>
 </html>

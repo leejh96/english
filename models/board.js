@@ -17,8 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         createText : {
             type :  DataTypes.DATE,
             defaultValue : sequelize.literal('now()'),
+
         }
     }, {
-        timestamps : false
+        timestamps : false,
+        dialectOptions: {
+            dateStrings: true
+        },
     });
 };
