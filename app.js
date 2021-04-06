@@ -59,6 +59,4 @@ app.use(function(err, req, res, next) {
     res.status(500).send('서버 에러!');
 });
 
-
-
 module.exports = app;
