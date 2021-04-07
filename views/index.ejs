@@ -43,7 +43,19 @@
         </a>
     </nav>
     <section class="main_page">
-        <div class="translate">네이버 번역기</div>
+        <div class="translate">
+            <h2>네이버 번역기</h3>
+            <span>
+                <textarea name="" id="toTranslateText" cols="30" rows="10" placeholder="번역할 내용을 입력하세요"></textarea>
+            </span>
+            <span>
+                <input type="button" id="translateBtn" value="번역하기">
+                <input type="button" id="langSelect"value="한국어">
+            </span>
+            <span>
+                <textarea name="" id="translatedText" cols="30" rows="10" readonly></textarea>
+            </span>
+        </div>
         <div class="todayandboard">
             <div class="main_board">
                 <h3>질문게시판</h3>
@@ -76,6 +88,7 @@
 
             </div>
             <div class="todayEng">
+                <h3>자주 나오는 단어</h3>
                 <table border="1">
                     <thead>
                         <tr>

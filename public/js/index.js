@@ -1,24 +1,70 @@
 "use strict";
-
 const webSocket = new WebSocket('ws://localhost:3000');
 const toggleBtn = document.querySelector('.navbar_toggleBtn');
 const navbarMenu = document.querySelector('.navbar_menu');
 const loginLinks = document.querySelector('.navbar_link');
 const logout = document.querySelector('.navbar_logout');
-
 const spelling = document.querySelector('#spelling');
 const meaning = document.querySelector('#meaning');
+const toTranslateText = document.querySelector('#toTranslateText');
+const translatedText = document.querySelector('#translatedText');
+const translateBtn = document.querySelector('#translateBtn');
+const c = document.querySelector('#langSelect');
+
+translateBtn.addEventListener('click', ()=>{
+    // if(langSelect.value === '한국어'){
+    //     const body = {
+    //         text : toTranslateText.value,
+    //         source : 'en',
+    //         target : 'ko'
+    //     };
+    // }
+    const body = {
+        text : toTranslateText.value,
+        source : 'en',
+        target : 'ko'
+    }
+    if(langSelect.value === '영어') {
+        body.source = 'ko',
+        body.target = 'en'
+    }
+    fetch('/translate',{
+        method : 'post',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(res => JSON.parse(res))
+    .then(res => {
+        translatedText.value = res.message.result.translatedText;
+    })
+});
+langSelect.addEventListener('click', ()=>{
+    if(langSelect.value === '한국어'){
+        langSelect.value = '영어';
+    }else{
+        langSelect.value = '한국어';
+    }
+});
+
 webSocket.onmessage = (e) => {
     const words = JSON.parse(e.data);
     for(let i = 0; i< words.length; i++){
         setTimeout(() => {
             spelling.innerHTML = words[i].spelling;
             meaning.innerHTML = words[i].meaning;
-        },1000*i);
+        },3000*i);
     }
-};
-webSocket.onclose = ()=>{
-    console.log('연결해제')
+    setInterval(() => {
+        for(let i = 0; i< words.length; i++){
+            setTimeout(() => {
+                spelling.innerHTML = words[i].spelling;
+                meaning.innerHTML = words[i].meaning;
+            },3000*i);
+        }
+    }, words.length*3000)
 };
 
 toggleBtn.addEventListener('click', ()=>{
@@ -26,12 +72,6 @@ toggleBtn.addEventListener('click', ()=>{
     loginLinks.classList.toggle('active');
     logout.classList.toggle('active');
 });
-
-// setInterval(()=>{
-
-// }, 10000)
-
-
 
 
 

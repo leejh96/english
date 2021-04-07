@@ -13,6 +13,7 @@ const addwordRouter = require('./routes/addword');
 const boardRouter = require('./routes/board');
 const addpostRouter = require('./routes/addpost');
 const repeatRouter = require('./routes/repeat');
+const translateRouter = require('./routes/translate');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -50,6 +51,7 @@ app.use('/addword',addwordRouter);
 app.use('/board',boardRouter);
 app.use('/addpost',addpostRouter);
 app.use('/repeat', repeatRouter);
+app.use('/translate', translateRouter);
 
 app.use((req, res, next)=>{
     res.status(404).send('요청하신 페이지를 찾을 수 없습니다.');
