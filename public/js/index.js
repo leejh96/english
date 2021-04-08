@@ -12,13 +12,6 @@ const translateBtn = document.querySelector('#translateBtn');
 const c = document.querySelector('#langSelect');
 
 translateBtn.addEventListener('click', ()=>{
-    // if(langSelect.value === '한국어'){
-    //     const body = {
-    //         text : toTranslateText.value,
-    //         source : 'en',
-    //         target : 'ko'
-    //     };
-    // }
     const body = {
         text : toTranslateText.value,
         source : 'en',
