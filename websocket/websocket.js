@@ -14,7 +14,6 @@ module.exports = (server) => {
         } catch (error) {
             console.error(error);
         }
-
     });
 }
 

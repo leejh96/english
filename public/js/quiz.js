@@ -27,20 +27,7 @@ function btnInput(answer, targetSpelling, btn){
             i += 1; 
         }
     }
-    return useValue;
-}
-function btnEvnet(answer, quizCnt, targetSpelling, useValue){
-    let idx = answer.spelling.indexOf(targetSpelling);
-    let count = 0;
-    for(let i = 0; i < 4; i++){
-        btn[i].addEventListener('click',()=>{
-            if(idx === useValue[i]){
-                count += 1;
-                correctCount.innerHTML = `맞춘 갯수 : ${count} / ${quizCnt}`
-            } 
-        });
-    }
-    return count;
+    return idx;
 }
 function timerValue(time){
     for(let i = 0; i <5; i++){
@@ -66,6 +53,8 @@ function randomEnglish(answer, quizCnt, words){
     }
     return answer;
 }
+
+
 webSocket.onmessage = (e)=>{
     const words = JSON.parse(e.data);
     let answer = { 
@@ -74,26 +63,43 @@ webSocket.onmessage = (e)=>{
         meaning : []
     };
     let quizCnt = 10;
+    let count = 0;
     if (words.length < quizCnt){
         quizCnt = words.length;
     }
+    let idx = -1
     answer = randomEnglish(answer, quizCnt, words);
     for(let cnt = 0; cnt < quizCnt; cnt++){
+        let targetSpelling = answer.spelling[cnt];
         const st = setTimeout(()=> {
             let time = 5;
-            let targetSpelling = '';
-            let useValue = [];
-            let cou = 0;
             timerValue(time);
             targetSpelling = spellingInput(answer, cnt);
-            useValue = btnInput(answer, targetSpelling, btn);
-            btnEvnet(answer, quizCnt, targetSpelling, useValue);
+            idx = btnInput(answer, targetSpelling, btn);
         }, cnt* 5000);
     }
-    
+    for(let i = 0; i<4; i++){
+        btn[i].addEventListener('click', ()=>{
+            if(btn[i].value === answer.meaning[idx]){
+                count += 1;
+                correctCount.innerHTML = `맞춘 갯수 : ${count} / ${quizCnt}`
+            }
+        });
+    }
+    setTimeout(()=>{
+        if(count === quizCnt){
+            alert('만점입니다. 축하드려요!');
+        }else if(count > parseInt(quizCnt/3)*2){
+            alert('훌륭합니다.');
+        }else if(count > parseInt(quizCnt/3)){
+            alert('조금만 더 노력하세요!');
+        }else{
+            alert('아직 많이 부족하세요..');
+        }
+    }, 5000 * quizCnt);
+
 };
 restart.addEventListener('click', ()=>{
     location.href = '/quiz';
 });
-
 
