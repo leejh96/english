@@ -5,7 +5,7 @@ const btn = document.querySelectorAll('.btn');
 const correctCount = document.querySelector('#correctCount');
 const restart = document.querySelector('#restart');
 const timer = document.querySelector('#timer');
-
+const btnSet = document.querySelector('#btnSet');
 function spellingInput(answer, cnt){
     spelling.innerHTML = answer.spelling[cnt];
     return spelling.innerHTML;
@@ -32,11 +32,11 @@ function btnInput(answer, targetSpelling, btn){
 function timerValue(time){
     for(let i = 0; i <5; i++){
         setTimeout(() => {
-            time = parseInt(time);
             timer.innerHTML = time;
             time -= 1;
         }, i* 1000);
     }
+    btnSet.disabled= false;
 };
 
 function randomEnglish(answer, quizCnt, words){
@@ -71,7 +71,7 @@ webSocket.onmessage = (e)=>{
     answer = randomEnglish(answer, quizCnt, words);
     for(let cnt = 0; cnt < quizCnt; cnt++){
         let targetSpelling = answer.spelling[cnt];
-        const st = setTimeout(()=> {
+        setTimeout(()=> {
             let time = 5;
             timerValue(time);
             targetSpelling = spellingInput(answer, cnt);
@@ -82,7 +82,12 @@ webSocket.onmessage = (e)=>{
         btn[i].addEventListener('click', ()=>{
             if(btn[i].value === answer.meaning[idx]){
                 count += 1;
-                correctCount.innerHTML = `맞춘 갯수 : ${count} / ${quizCnt}`
+                correctCount.innerHTML = `맞춘 갯수 : ${count} / ${quizCnt}`;
+                btnSet.disabled = true;
+            }
+            else{
+                correctCount.innerHTML = '틀렸습니다';
+                btnSet.disabled = true;
             }
         });
     }
@@ -90,11 +95,11 @@ webSocket.onmessage = (e)=>{
         if(count === quizCnt){
             alert('만점입니다. 축하드려요!');
         }else if(count > parseInt(quizCnt/3)*2){
-            alert('훌륭합니다.');
+            alert(`${count}개 맞았습니다. 훌륭해요!`);
         }else if(count > parseInt(quizCnt/3)){
-            alert('조금만 더 노력하세요!');
+            alert(`${count}개 맞았습니다. 조금만 더 노력하세요!`);
         }else{
-            alert('아직 많이 부족하세요..');
+            alert(`${count}개 맞았습니다. 아직 많이 부족하세요..`);
         }
     }, 5000 * quizCnt);
 

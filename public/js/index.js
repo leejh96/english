@@ -9,9 +9,12 @@ const meaning = document.querySelector('#meaning');
 const toTranslateText = document.querySelector('#toTranslateText');
 const translatedText = document.querySelector('#translatedText');
 const translateBtn = document.querySelector('#translateBtn');
-const c = document.querySelector('#langSelect');
+const langSelect = document.querySelector('#langSelect');
 
 translateBtn.addEventListener('click', ()=>{
+    if(!toTranslateText.value){
+        return alert('번역할 값을 입력하세요');
+    }
     const body = {
         text : toTranslateText.value,
         source : 'en',
@@ -37,8 +40,10 @@ translateBtn.addEventListener('click', ()=>{
 langSelect.addEventListener('click', ()=>{
     if(langSelect.value === '한국어'){
         langSelect.value = '영어';
+        toTranslateText.placeholder = '한글을 입력하세요';
     }else{
         langSelect.value = '한국어';
+        toTranslateText.placeholder = '영어을 입력하세요';
     }
 });
 
