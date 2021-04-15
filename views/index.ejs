@@ -46,12 +46,12 @@
         <div class="translate">
             <h1>번역기</h1>
             <div>
-                <textarea name="" id="toTranslateText" cols="30" rows="10" placeholder="번역할 내용을 입력하세요" style="resize: none;" required></textarea>
-                <div>
+                <textarea name="" id="toTranslateText" cols="50" rows="10" placeholder="번역할 내용을 입력하세요" style="resize: none;" required></textarea>
+                <div class="btn">
                     <input type="button" id="translateBtn" value="번역하기">
                     <input type="button" id="langSelect"value="한국어">
                 </div>
-                <textarea name="" id="translatedText" cols="30" rows="10" style="resize: none;" readonly></textarea>
+                <textarea name="" id="translatedText" cols="50" rows="10" style="resize: none;" readonly></textarea>
             </div>
         </div>
         <div class="todayandboard">
@@ -61,22 +61,22 @@
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
+                            <th id="postId">번호</th>
+                            <th id="postTitle">제목</th>
+                            <th id="postAuthor">작성자</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% let count = 1 %>
                         <%data.post.forEach(function(i){%>
                             <tr>
-                                <td><%=count%></td>
+                                <td class="count"><%=count%></td>
                                 <% if(!data.session) {%>
-                                    <td><a href="/login"><%=i.dataValues.title%></a></td>
-                                    <td><%= i.dataValues.author%></td>
+                                    <td class="title"><a href="/login"><%=i.dataValues.title%></a></td>
+                                    <td class="author"><%= i.dataValues.author%></td>
                                 <%}else{%>
-                                    <td><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></td>
-                                    <td><%= i.dataValues.author%></td>
+                                    <td class="title"><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></td>
+                                    <td class="author"><%= i.dataValues.author%></td>
                                 <%}%>
                             </tr>
                             <% count += 1 %>
@@ -90,8 +90,8 @@
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>단어</th>
-                            <th>뜻</th>
+                            <th id="wordSpelling">단어</th>
+                            <th id="wordMeaning">뜻</th>
                         </tr>
                     </thead>
                     <tbody>

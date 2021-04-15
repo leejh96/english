@@ -4,35 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b359215d2f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/myword.css">
     <title>나의 단어장</title>
 </head>
 <body>
-    <a href="/">홈</a>
-
-    <div class="wordTable">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>단어</th>
-                    <th>뜻</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%let count = 1%>
-                <% words.forEach(function(i){ %>                 
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-edit"></i>
+            <a href="/">오늘의 단어</a>
+        </div>
+        <ul class="navbar_menu">
+            <li><a href="/myword">나의 단어장</a></li>
+            <li><a href="/repeat">복습하기</a></li>
+            <li><a href="/quiz">오늘의 퀴즈</a></li>
+        </ul>
+        <ul class="navbar_logout">
+            <li><a href="/myword/log/out">로그아웃</a></li>
+        </ul>
+        <a href="#" class="navbar_toggleBtn">
+            <i class="fas fa-bars"></i>
+        </a>
+    </nav>
+    <section id="mainPage">
+        <div class="wordTable">
+            <table border="1">
+                <thead>
                     <tr>
-                        <td><%=count%></td>
-                        <td><a href="/myword/<%= i.dataValues.id %>"><%= i.dataValues.spelling %></a></td>
-                        <td><%= i.dataValues.meaning %></td>
+                        <th id="tableNumber">번호</th>
+                        <th id="tableSpelling">단어</th>
+                        <th id="tableMeaning">뜻</th>
                     </tr>
-                    <%count += 1%>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-    <div>
+                </thead>
+                <tbody>
+                    <%let count = 1%>
+                    <% data.words.forEach(function(i){ %>                 
+                        <tr>
+                            <td class="number"><%=count%></td>
+                            <td class="spelling"><a href="/myword/<%= i.dataValues.id %>"><%= i.dataValues.spelling %></a></td>
+                            <td class="meaning"><%= i.dataValues.meaning %></td>
+                        </tr>
+                        <%count += 1%>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <div id="memoPosition">
+            <textarea name="" id="memo"></textarea>
+        </div>
+    </section>
+    <footer>
         <a href="/addword"><input type="button" value="추가"></a>
-    </div>
+    </footer>
 </body>
 </html>

@@ -17,9 +17,13 @@ router.get('/', async (req, res, next) =>{
                 }]
             });
             if(words){
-                res.render('myword', {words});
+                const session = req.user;
+                const data = {words, session}
+                res.render('myword', {data});
             }else{
-                res.render('myword');
+                const session = req.user;
+                const data = {session}
+                res.render('myword', {data});
             }
         } catch (error) {
             console.error(error);
@@ -47,6 +51,14 @@ router.get('/:id/edit', async(req, res, next)=>{
         next(error);
     }
 })
+
+router.get('/log/out', (req, res, next) => {
+    req.logout();//passport의 logout으로 로그아웃 구현
+    //세션도 다 지워줌
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
 
 router.post('/', async (req, res, next) => {
     const { spelling, meaning } = req.body;
