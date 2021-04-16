@@ -94,7 +94,57 @@ router.post('/', async (req, res, next) => {
         next(error);
     }
 });
-
+router.post('/search', async (req, res, next)=>{
+    const { lang, text } = req.body;
+    try {
+        if(lang === 'ko'){
+            const word = await Word.findAll({       
+                where : {
+                    meaning : text
+                },
+                include : [{
+                    model : User,
+                    where : { id : req.user.id }
+                }]   
+            });
+            if(word){
+                res.json({
+                    success : true,
+                    word
+                })
+            }else{
+                res.json({
+                    success : false,
+                    message : '해당하는 단어가 없습니다.'
+                })
+            }
+        }else{
+            const word = await Word.findAll({       
+                where : {
+                    spelling : text
+                },
+                include : [{
+                    model : User,
+                    where : { id : req.user.id }
+                }]   
+            });
+            if(word){
+                res.json({
+                    success : true,
+                    word
+                })
+            }else{
+                res.json({
+                    success : false,
+                    message : '해당하는 단어가 없습니다.'
+                })
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 router.put('/:id', async(req, res, next)=>{
     try {
         const word = await Word.update({

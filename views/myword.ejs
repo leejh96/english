@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b359215d2f.js" crossorigin="anonymous"></script>
+    <script src="/js/myword.js" defer></script>
     <link rel="stylesheet" href="/css/myword.css">
     <title>나의 단어장</title>
 </head>
@@ -29,7 +30,7 @@
     </nav>
     <section id="mainPage">
         <div class="wordTable">
-            <table border="1">
+            <table border="1" id="table">
                 <thead>
                     <tr>
                         <th id="tableNumber">번호</th>
@@ -55,7 +56,22 @@
         </div>
     </section>
     <footer>
-        <a href="/addword"><input type="button" value="추가"></a>
+        <div id="addBtn">
+            <a href="/addword"><input type="button" value="추가"></a>
+        </div>
+        <div id="countingPage">
+            <a href="#"><</a>
+            <a href="#">1</a>
+            <a href="#">></a>
+        </div>
+        <div id="search">
+            <select name="" id="koORen">
+                <option value="ko" selected>한국어</option>
+                <option value="en">영어</option>
+            </select>
+            <input type="text" name="" id="searchText">
+            <input type="button" value="검색" id="searchBtn">
+        </div>
     </footer>
 </body>
 </html>
