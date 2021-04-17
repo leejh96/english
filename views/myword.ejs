@@ -39,20 +39,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%let count = 1%>
-                    <% data.words.forEach(function(i){ %>                 
+                    <%for(let i = 0; i< data.words.number.length;i++){%>
                         <tr>
-                            <td class="number"><%=count%></td>
-                            <td class="spelling"><a href="/myword/<%= i.dataValues.id %>"><%= i.dataValues.spelling %></a></td>
-                            <td class="meaning"><%= i.dataValues.meaning %></td>
+                            <td class="number"><%=data.words.number[i]%></td>
+                            <td class="spelling"><a href="/myword/<%= data.words.id[i]%>"><%= data.words.spelling[i] %></a></td>
+                            <td class="meaning"><%= data.words.meaning[i] %></td>
                         </tr>
-                        <%count += 1%>
-                    <% }) %>
+                    <%}%>
                 </tbody>
             </table>
         </div>
         <div id="memoPosition">
-            <textarea name="" id="memo"></textarea>
+            <textarea name="" id="memo" placeholder="메모장 입니다"></textarea>
         </div>
     </section>
     <footer>
@@ -60,9 +58,19 @@
             <a href="/addword"><input type="button" value="추가"></a>
         </div>
         <div id="countingPage">
-            <a href="#"><</a>
-            <a href="#">1</a>
-            <a href="#">></a>
+            <%if(data.pageNumber === 1){%>
+                <a href="#"><</a>
+            <%}else{%>
+                <a href="/myword/page/<%=data.pageNumber-1%>"><</a>
+            <%}%>
+            <%for(let i = 0; i<= parseInt(data.totalWordsCount/10); i++){%>
+                <a href="/myword/page/<%=i+1%>"><%=i+1%></a>
+            <%}%>
+            <%if(data.pageNumber === parseInt(data.totalWordsCount/10)+1){%>
+                <a href="#">></a>
+            <%}else{%>
+                <a href="/myword/page/<%=data.pageNumber+1%>">></a>
+            <%}%>
         </div>
         <div id="search">
             <select name="" id="koORen">

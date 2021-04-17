@@ -91,10 +91,12 @@ a{
     padding: 0 10% 0 10%;
 }
 #toTranslateText{
-    width: 40%
+    width: 40%;
+    font-size: 1.5rem;
 }
 #translatedText{
     width: 40%;
+    font-size: 1.5rem;
 }
 .btn{
     width: 20%;

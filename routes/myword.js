@@ -10,15 +10,29 @@ router.get('/', async (req, res, next) =>{
         res.redirect('/login');
     }else{
         try {
-            const words = await Word.findAll({
+            const word = await Word.findAll({
                 include : [{
                     model : User,
                     where : { id : req.user.id }
                 }]
             });
-            if(words){
+            if(word){
+                const words = {
+                    number:[],
+                    spelling:[],
+                    meaning:[],
+                    id:[],
+                };
+                for(let i = 0; i<10; i++){
+                    words.number.push(i+1);
+                    words.spelling.push(word[i].dataValues.spelling);
+                    words.meaning.push(word[i].dataValues.meaning);
+                    words.id.push(word[i].dataValues.id);
+                }
+                const totalWordsCount = word.length;
                 const session = req.user;
-                const data = {words, session}
+                const pageNumber = 1;
+                const data = {words, session, totalWordsCount, pageNumber}
                 res.render('myword', {data});
             }else{
                 const session = req.user;
@@ -58,6 +72,41 @@ router.get('/log/out', (req, res, next) => {
     req.session.destroy(() => {
         res.redirect('/');
     });
+});
+
+router.get('/page/:pageNumber', async (req, res, next) => {
+    try {
+        const word = await Word.findAll({
+            include : [{
+                model : User,
+                where : { id : req.user.id }
+            }]
+        });
+        const words = {
+            number : [],
+            spelling: [],
+            meaning:[],
+            id:[],
+        };
+        const totalWordsCount = word.length;
+        const session = req.user;
+        const pageNumber = parseInt(req.params.pageNumber);
+        let wordCount = pageNumber*10;
+        if (wordCount > word.length){
+            wordCount = word.length;
+        }
+        for(let i = (pageNumber-1)*10; i< wordCount; i++){
+            words.number.push(i+1);
+            words.spelling.push(word[i].dataValues.spelling);
+            words.meaning.push(word[i].dataValues.meaning);
+            words.id.push(word[i].dataValues.id);
+        }
+        const data = {words, session, totalWordsCount, pageNumber};
+        res.render('myword',{data});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
 });
 
 router.post('/', async (req, res, next) => {

@@ -166,7 +166,7 @@ footer{
         width: 100%;
         text-align: center;
     }
-    .navbar_link. .navbar_logout{
+    .navbar_link, .navbar_logout{
         display: none;
         justify-content: center;
         width: 100%;
