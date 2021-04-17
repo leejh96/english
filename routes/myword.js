@@ -68,7 +68,12 @@ router.post('/', async (req, res, next) => {
             include : [{model: User}]
         });
         if (word){
-            if(word.users[0].dataValues.id === req.user.id){
+            const idArr = [];
+            for(let i = 0; i<word.users.length; i++){
+                idArr.push(word.users[i].id);
+            }
+            console.log(idArr);
+            if(idArr.includes(req.user.id)){
                 return res.json({
                     success : false,
                     message : '이미 존재하는 단어입니다'
@@ -107,7 +112,7 @@ router.post('/search', async (req, res, next)=>{
                     where : { id : req.user.id }
                 }]   
             });
-            if(word){
+            if(word.length !== 0){
                 res.json({
                     success : true,
                     word

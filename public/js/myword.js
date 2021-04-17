@@ -5,13 +5,13 @@ const number = document.querySelectorAll('.number');
 const spelling = document.querySelectorAll('.spelling');
 const meaning = document.querySelectorAll('.meaning');
 const table = document.querySelector('#table');
+
 searchBtn.addEventListener('click',()=>{
     const lang = koORen.options[koORen.selectedIndex].value
     const text = searchText.value;
     if(!text){
         return alert('검색할 내용을 입력하세요');
     }
-    console.log(table.tBody.rows.length)
     fetch('/myword/search/', {
         method: 'post',
         headers: {
@@ -24,15 +24,18 @@ searchBtn.addEventListener('click',()=>{
     })
     .then(res => res.json())
     .then(res => {
-        console.log(res);
         if(res.success){
-            for(let i = 0; i< tbody.rows.length; i++){
-                tbody.deleteRow();
+            while (table.rows.length !== 0){
+                table.deleteRow(0);
             }
             for(let i = 0; i< res.word.length; i++){
-                number[i].innerHTML = i+1;
-                spelling[i].innerHTML = res.word[i].spelling;
-                meaning[i].innerHTML = res.word[i].meaning;
+                let newRow = table.insertRow();
+                let number = newRow.insertCell(0);
+                let spelling = newRow.insertCell(1);
+                let meaning = newRow.insertCell(2);
+                number.innerHTML = i+1;
+                spelling.innerHTML = res.word[i].spelling;
+                meaning.innerHTML = res.word[i].meaning;
             }
         }else{
             alert(res.message);

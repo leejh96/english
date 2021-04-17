@@ -87,12 +87,16 @@ body{
 }
 #tableNumber{
     width: 15%;
+    height: 10%;
 }
 #tableSpelling{
     width: 42.5%;
+    height: 10%;
+
 }
 #tableMeaning{
     width: 42.5%;
+    height: 10%;
 }
 .number{
     width: 10%;
@@ -121,6 +125,7 @@ footer{
     width: 100%;
     margin: 0;
     display: block;
+    border-top: 1px solid gray;
 }
 #addBtn{
     height: 30%;
