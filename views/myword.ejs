@@ -17,7 +17,7 @@
             <a href="/">오늘의 단어</a>
         </div>
         <ul class="navbar_menu">
-            <li><a href="/myword">나의 단어장</a></li>
+            <li><a href="/myword/page/1">나의 단어장</a></li>
             <li><a href="/repeat">복습하기</a></li>
             <li><a href="/quiz">오늘의 퀴즈</a></li>
         </ul>
@@ -58,19 +58,10 @@
             <a href="/addword"><input type="button" value="추가"></a>
         </div>
         <div id="countingPage">
-            <%if(data.pageNumber === 1){%>
-                <a href="#"><</a>
-            <%}else{%>
-                <a href="/myword/page/<%=data.pageNumber-1%>"><</a>
-            <%}%>
-            <%for(let i = 0; i<= parseInt(data.totalWordsCount/10); i++){%>
-                <a href="/myword/page/<%=i+1%>"><%=i+1%></a>
-            <%}%>
-            <%if(data.pageNumber === parseInt(data.totalWordsCount/10)+1){%>
-                <a href="#">></a>
-            <%}else{%>
-                <a href="/myword/page/<%=data.pageNumber+1%>">></a>
-            <%}%>
+            <input type="hidden" name="pageNumber" id="wordCount" value="<%=data.totalWordsCount%>">
+            <span id=leftBtnSpace></span>
+            <span id="countingPageNumber"></span>
+            <span id=rightBtnSpace></span>
         </div>
         <div id="search">
             <select name="" id="koORen">

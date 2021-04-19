@@ -23,7 +23,7 @@ Btn.addEventListener('click', () =>{
     .then(res => res.json())
     .then(res => {
         if(res.success){
-            location.href = '/myword';
+            location.href = `/myword/page/1`;
         }else{
             alert(res.message);
             location.href = '/addword';

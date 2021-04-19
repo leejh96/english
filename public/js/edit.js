@@ -3,6 +3,7 @@ const spelling = document.querySelector('#spelling');
 const meaning = document.querySelector('#meaning');
 const modifyBtn = document.querySelector('#modifyBtn');
 const wordId = document.location.pathname.split('/')[2];
+
 modifyBtn.addEventListener('click', ()=>{
     if(!spelling.value){
         return alert('단어를 입력하세요');
