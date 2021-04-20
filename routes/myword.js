@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { Word, User } = require('../models/');
+const { Word, User, Op } = require('../models/');
 
 router.get('/page/:pageNumber', async (req, res, next) => {
     try {
@@ -44,9 +44,22 @@ router.get('/page/:pageNumber', async (req, res, next) => {
 
 router.get('/:id', async(req,res,next)=>{
     try {
-        const word = await Word.findOne({where : { id : req.params.id}});
-        const pageNumber = req.params.pageNumber;
-        res.render('worddetail', {word, pageNumber});
+        if(!req.user){
+            return res.redirect('/login')
+        }
+        const word = await Word.findOne({
+            where : {
+                id: req.params.id
+            }
+        });
+        const similarWords = await Word.findAll({
+            where: {
+                meaning : {
+                    [Op.like]: `%${word.meaning.substring(0,2)}%`
+                }
+            }
+        });
+        res.render('worddetail', {word, similarWords});
     } catch (error) {
         console.error(error);
         next(error);
@@ -55,6 +68,9 @@ router.get('/:id', async(req,res,next)=>{
 
 router.get('/:id/edit', async(req, res, next)=>{
     try {
+        if(!req.user){
+            return res.redirect('/login')
+        }
         const word = await Word.findOne({where : { id : req.params.id}});
         res.render('edit', {word});
     } catch (error) {

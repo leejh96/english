@@ -3,7 +3,6 @@
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];
-
 const sequelize = new Sequelize(config.databsse, config.username, config.password, config)
 const db = {};
 
@@ -14,6 +13,7 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Word = require('./word')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
 db.Comment = require('./comment')(sequelize, Sequelize);
+db.Op = Sequelize.Op;
 
 db.User.belongsToMany(db.Word, {through: 'userWord'});
 db.Word.belongsToMany(db.User, {through: 'userWord'});

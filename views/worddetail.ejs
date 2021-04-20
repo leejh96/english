@@ -4,16 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단어내용</title>
+    <link rel="stylesheet" href="/css/worddetail.css">
+    <title>세부내용</title>
 </head>
 <body>
-    <a href="/">홈</a>
-
-    <p>단어 : <%= word.dataValues.spelling%></p>
-    <p>뜻 : <%= word.dataValues.meaning%></p>
-    <a href="/myword/<%= word.dataValues.id%>/edit"><input type="button" value="수정"></a>
-    <form action="/myword/<%= word.dataValues.id%>?_method=delete" method="post">
-        <input type="submit" value="삭제">
-    </form>
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-edit"></i>
+            <a href="/">오늘의 단어</a>
+        </div>
+        <ul class="navbar_menu">
+            <li><a href="/myword/page/1">나의 단어장</a></li>
+            <li><a href="/repeat">복습하기</a></li>
+            <li><a href="/quiz">오늘의 퀴즈</a></li>
+        </ul>
+        <ul class="navbar_logout">
+            <li><a href="/myword/log/out">로그아웃</a></li>
+        </ul>
+        <a href="#" class="navbar_toggleBtn">
+            <i class="fas fa-bars"></i>
+        </a>
+    </nav>
+    <label id="title">단어 내용</label>
+    <section id="main">
+        <p id="spelling"><label><%= word.dataValues.spelling%></label></p>
+        <p id="meaning"><label><%= word.dataValues.meaning%></label></p>
+        <div id="updateORdelete">
+            <a href="/myword/<%= word.dataValues.id%>/edit"><input type="button" value="수정"></a>
+            <form action="/myword/<%= word.dataValues.id%>?_method=delete" method="post">
+                <input type="submit" value="삭제">
+            </form>
+        </div>
+    </section>
+    <section id="similarWord">
+        <h1><label>유사 어휘</label></h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>단어</th>
+                    <th>뜻</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(let i = 0; i< similarWords.length; i++){%>
+                <tr>
+                    <td><%=i+1%></td>
+                    <td><%= similarWords[i].dataValues.spelling%></td>
+                    <td><%= similarWords[i].dataValues.meaning%></td>
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

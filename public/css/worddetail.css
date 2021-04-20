@@ -1,0 +1,119 @@
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+    --parentHeight : 10%;
+}
+body{
+    margin: 0;
+    background-color: var(--body-color);
+}
+.navbar a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+.navbar{
+    height: 8%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background-color);
+    align-items: center;
+    padding: 0 1% 0 1%;
+}
+.navbar_logo{
+    color: var(--text-color);
+    font-size: 30px;
+}
+.navbar_logo i{
+    color: var(--logo-color);
+}
+.navbar_menu{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    color: var(--text-color);
+}
+.navbar_menu li{
+    list-style: none;
+    padding: 8px 12px;
+    font-size: 20px;
+}
+.navbar_menu li:hover{
+    background-color: grey;
+    border-radius: 4px;
+}
+.navbar_logout {
+    display: flex;
+    list-style: none;
+    color: var(--text-color);
+    padding-left: 0;
+}
+.navbar_link li{
+    padding: 8px 12px;
+}
+
+.navbar_toggleBtn{
+    position: absolute;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+}
+#title{
+    margin: 0 20% 0 20%;
+    font-size: 3rem;
+}
+#main{
+    padding: 0;
+    margin: 5% 20% 0 20%;
+    background-color: var(--main-background-color);
+    margin-bottom: 60px;
+}
+
+
+#main > p{
+    margin: 0;
+    text-align: center;
+    margin-bottom: 50px;
+}
+#main label{
+    font-size: 4rem;
+}
+#spelling{
+    padding-top: 20px;
+}
+#updateORdelete{
+    display: flex;
+    justify-content: center;
+}
+#updateORdelete > a{
+    margin-right: 10px;
+}
+#updateORdelete > a > input{
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+#updateORdelete > form > input{
+    font-size: 2rem;
+    margin-bottom: 10px;
+
+}
+#similarWord{
+    padding: 0;
+    margin: 0 20% 0 20%;
+    background-color: var(--main-background-color);
+}
+
+#similarWord > h1{
+    padding-top: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+table{
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+}
