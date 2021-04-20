@@ -12,6 +12,15 @@
     <div>
         <p>단어 : <input type="text" name="spelling" id="spelling" autocomplete="off"></p>
         <p>뜻  : <input type="text" name="meaning" id="meaning" autocomplete="off"></p>
+        <div id="category">
+            <label>단어 카테고리</label>
+            <select name="" id="categoryMenu">
+                <option value="none"selected>------</option>
+                <%for(let i =0; i< category.length; i++){%>
+                    <option value=""><%=category[i].dataValues.category%></option>
+                <%}%>
+            </select>
+        </div>
         <p><input type ="submit" value= "저장" id="Btn"><p>
     </div>
 </body>

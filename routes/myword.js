@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { Word, User, Op } = require('../models/');
+const { Word, User, Category, Op } = require('../models/');
 
 router.get('/page/:pageNumber', async (req, res, next) => {
     try {
@@ -55,7 +55,7 @@ router.get('/:id', async(req,res,next)=>{
         const similarWords = await Word.findAll({
             where: {
                 meaning : {
-                    [Op.like]: `%${word.meaning.substring(0,2)}%`
+                    [Op.like]: `%${word.meaning.substring()}%`
                 }
             }
         });
@@ -88,12 +88,13 @@ router.get('/log/out', (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    const { spelling, meaning } = req.body;
+    const { spelling, meaning, category } = req.body;
     try{
         const word = await Word.findOne({
             where : { spelling, meaning },
-            include : [{model: User}]
+            include : [{ model:  User }, { model: Category }],
         });
+        console.log(word);
         if (word){
             const idArr = [];
             for(let i = 0; i<word.users.length; i++){
@@ -106,6 +107,7 @@ router.post('/', async (req, res, next) => {
                 });
             }else{
                 await word.addUser(req.user.id);
+                await word.addCategory(category);
                 return res.json({
                     success : true,
                 });
@@ -116,6 +118,7 @@ router.post('/', async (req, res, next) => {
                 meaning
             });
             await createWord.addUser(req.user.id);
+            await createWord.addCategory(category);
             return res.json({
                 success : true,
             });
