@@ -79,9 +79,11 @@ body{
     width: 50%;
     height: 100%;
 }
+.wordTable{
+    border-bottom: 1px solid gray;
+}
 .wordTable>table{
     width: 100%;
-    height: 100%;
     text-align: center;
     font-size: 2rem;
 }
@@ -92,8 +94,8 @@ body{
 #tableSpelling{
     width: 42.5%;
     height: 10%;
-
 }
+
 #tableMeaning{
     width: 42.5%;
     height: 10%;
@@ -103,6 +105,13 @@ body{
 }
 .spelling{
     width: 45%;
+}
+.spelling >a{
+    text-decoration: none;
+    color: black;
+}
+.spelling >a:hover{
+    color: blue;
 }
 .meaning{
     width: 45%;
@@ -136,13 +145,21 @@ footer{
 }
 #countingPage{
     text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+#firstPage, #lastPage{
+    font-size: 1.25rem;
 }
 #search{
     text-align: center;
 }
-#leftBtnSpace a, #countingPageNumber a, #rightBtnSpace a{
+#leftBtnSpace a, #countingPageNumber a, #rightBtnSpace a, #firstPage a, #lastPage a{
     text-decoration: none;
-    font-size: 1.5rem;
+    color: black;
+}
+#countingPage a:hover{
+    color: blue;
 }
 @media screen and (max-width: 768px){
     .navbar{

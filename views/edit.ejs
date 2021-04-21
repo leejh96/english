@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/edit.css">
     <script src="/js/edit.js" defer></script>
     <title>수정</title>
 </head>
 <body>
-    <a href="/">홈</a>
-    <div>
-        <p>단어 : <input type="text" name="spelling" id="spelling" value="<%=word.dataValues.spelling%>" autocomplete="off"></p>
-        <p>뜻 : <input type="text" name="meaning" id="meaning" value="<%=word.dataValues.meaning%>" autocomplete="off"></p>
-        <input type="submit" id="modifyBtn" value="수정">    
+    <div id="main">
+        <div id="addWord">
+            <div id="spellingPosition">
+                <label>단어</label>
+                <label>:</label>
+                <input type="text" name="spelling" id="spelling" value="<%=word.dataValues.spelling%>" autocomplete="off">
+            </div>
+            <div id="meaningPosition">
+                <label id=mean>뜻</label>
+                <label id="colon">:</label>
+                <input type="text" name="meaning" id="meaning" value="<%=word.dataValues.meaning%>" autocomplete="off">            </div>
+        </div>
+        <div id="category">
+            <label>단어 카테고리</label>
+            <select name="" id="categoryMenu">
+                <option value="none"selected>------</option>
+                <%for(let i =0; i< category.length; i++){%>
+                    <option value="<%=category[i].dataValues.id%>"><%=category[i].dataValues.category%></option>
+                <%}%>
+            </select>
+        </div>
+        <div id="collectBtn">
+            <input type ="button" value= "수정" id="modifyBtn">
+            <a href="/myword/page/1"><input type="button" value="취소"></a>
+        </div>
     </div>
-    
 </body>
 </html>

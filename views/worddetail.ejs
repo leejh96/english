@@ -25,7 +25,9 @@
             <i class="fas fa-bars"></i>
         </a>
     </nav>
-    <label id="title">단어 내용</label>
+    <div id="mainTitle">
+        <label id="title">단어 내용</label>
+    </div>
     <section id="main">
         <p id="spelling"><label><%= word.dataValues.spelling%></label></p>
         <p id="meaning"><label><%= word.dataValues.meaning%></label></p>
@@ -41,18 +43,55 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>단어</th>
-                    <th>뜻</th>
+                    <th class="number">번호</th>
+                    <th class="spelling">단어</th>
+                    <th class="meaning">뜻</th>
                 </tr>
             </thead>
             <tbody>
-                <%for(let i = 0; i< similarWords.length; i++){%>
+                <%if(similarWords.length === 1){%>
+                    <tr>
+                        <td colspan="3">등록된 단어가 없습니다</td>
+                    </tr>
+                <%}else{%>
+                    <%for(let i = 0; i< similarWords.length; i++){%>
+                        <%if(!(similarWords[i].dataValues.spelling === word.dataValues.spelling && similarWords[i].dataValues.meaning === word.dataValues.meaning)){%>
+                            <tr>
+                                <td class="number"><%= i+1%></td>
+                                <td class="spelling"><%= similarWords[i].dataValues.spelling%></td>
+                                <td class="meaning"><%= similarWords[i].dataValues.meaning%></td>
+                            </tr>
+                        <%}%>
+                    <%}%>
+                <%}%>
+            </tbody>
+        </table>
+    </section>
+    <section id="similarCategory">
+        <h1><label>같은 카테고리 언어</label></h1>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><%=i+1%></td>
-                    <td><%= similarWords[i].dataValues.spelling%></td>
-                    <td><%= similarWords[i].dataValues.meaning%></td>
+                    <th class="number">번호</th>
+                    <th class="spelling">단어</th>
+                    <th class="meaning">뜻</th>
                 </tr>
+            </thead>
+            <tbody>
+                <%if(similarCategory.length === 1){%>
+                    <tr>
+                        <td colspan="3">등록된 단어가 없습니다</td>
+                    </tr>
+                <%}else{%>
+                    <%for(let i = 0; i< similarCategory.length; i++){%>
+                        <%if(!(similarCategory[i].dataValues.spelling === word.dataValues.spelling && similarCategory[i].dataValues.meaning === word.dataValues.meaning)){%>
+                            <tr>
+                                <td class="number"><%= i+1%></td>
+                                <td class="spelling"><%= similarCategory[i].dataValues.spelling%></td>
+                                <td class="meaning"><%= similarCategory[i].dataValues.meaning%></td>
+                            </tr>
+                        <%}%>
+                    <%}%>
                 <%}%>
             </tbody>
         </table>

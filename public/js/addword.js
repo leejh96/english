@@ -1,10 +1,13 @@
+"use strict";
 const spelling = document.querySelector('#spelling');
 const meaning = document.querySelector('#meaning');
 const Btn = document.querySelector('#Btn');
 const categoryMenu = document.querySelector('#categoryMenu');
 
+
 Btn.addEventListener('click', () =>{
-    const category = categoryMenu.options[categoryMenu.selectedIndex].value
+    const category = categoryMenu.options[categoryMenu.selectedIndex].value;
+    console.log(category);
     if(!spelling.value){
         return alert('단어를 입력하세요');
     }
@@ -17,7 +20,7 @@ Btn.addEventListener('click', () =>{
     const word = {
         spelling : spelling.value,
         meaning : meaning.value,
-        category : categoryMenu.selectedIndex
+        category : categoryMenu.options[categoryMenu.selectedIndex].value
     };
     fetch('/myword', {
         method :'post',

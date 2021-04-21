@@ -52,10 +52,15 @@ let pageCnt = 3;
 const leftBtnSpace = document.querySelector('#leftBtnSpace');
 const countingPageNumber = document.querySelector('#countingPageNumber');
 const rightBtn = document.querySelector('#rightBtnSpace');
+const firstPage = document.querySelector('#firstPage');
+const lastPage = document.querySelector('#lastPage');
+
 
 if(parseInt(wordCount.value) % 10 === 0){
     repeatCount -= 1;
 }
+
+firstPage.innerHTML = '<a href="/myword/page/1">처음 </a> '
 if(pageInt === 1){
     leftBtnSpace.innerHTML = '';
 }else{
@@ -65,21 +70,33 @@ for(let i = 0; i < repeatCount; i++){
     if (i >= pageCnt){
         break;
     }else{
-        countingPageNumber.innerHTML += `<a href="/myword/page/${i+1}" class="aTags">${i+1}</a> `
+        if(pageInt === i+1){
+            countingPageNumber.innerHTML += `<a href="/myword/page/${i+1}" style="text-decoration : underline;" class="aTags">${i+1}</a> `;
+
+        }else{
+            countingPageNumber.innerHTML += `<a href="/myword/page/${i+1}" class="aTags">${i+1}</a> `;
+        }
     }
 }
-
+    
 if(pageInt === repeatCount){
     rightBtn.innerHTML ='';
 }else{
-    rightBtn.innerHTML = `<a href="/myword/page/${pageInt+1}">></a>`;
+    if(repeatCount === 0){
+        rightBtn.innerHTML ='';
+    }else{
+        rightBtn.innerHTML = `<a href="/myword/page/${pageInt+1}">></a>`;
+    }
 }
 
 if(pageInt > pageCnt){
     const aTags = document.querySelectorAll('.aTags');
-    console.log(aTags);
     for(let j = 0; j< aTags.length; j++){
         aTags[j].href = `/myword/page/${pageInt - pageCnt + 1 + j}`;
         aTags[j].text = `${pageInt - pageCnt + 1 + j}`;
+        if(j === aTags.length-1){
+            aTags[j].style.textDecoration = 'underline';
+        }
     }
 }
+lastPage.innerHTML = `<a href="/myword/page/${repeatCount}"> 끝</a>`;

@@ -42,7 +42,7 @@ router.get('/page/:pageNumber', async (req, res, next) => {
     }
 });
 
-router.get('/:id', async(req,res,next)=>{
+router.get('/:id', async(req, res, next)=>{
     try {
         if(!req.user){
             return res.redirect('/login')
@@ -50,16 +50,43 @@ router.get('/:id', async(req,res,next)=>{
         const word = await Word.findOne({
             where : {
                 id: req.params.id
-            }
+            },
+            include:[{
+                model : Category
+            }]
         });
         const similarWords = await Word.findAll({
             where: {
                 meaning : {
-                    [Op.like]: `%${word.meaning.substring()}%`
+                    [Op.like]: `%${word.meaning.substring(0,2)}%`
                 }
             }
         });
-        res.render('worddetail', {word, similarWords});
+        const categoryArr = []
+        let similarCategory = {}
+        if(word.categories.length > 1){
+            for(let i = 0; i< word.categories.length; i++){
+                categoryArr.push(word.categories[i].id);
+            }
+            similarCategory = await Word.findAll({
+                where : { id : {[Op.ne] : word.id}},
+                include : [{
+                    model : Category,
+                    where : {
+                        [ Op.in ] : [{id : categoryArr }],
+                    }
+                }]
+            })
+        }else{
+            similarCategory = await Word.findAll({
+                where : { id : {[Op.ne] : word.id}},
+                include : [{
+                    model : Category,
+                    where : { id : word.categories[0].id}
+                }]
+            })
+        }
+        res.render('worddetail', {word, similarWords, similarCategory});
     } catch (error) {
         console.error(error);
         next(error);
@@ -71,8 +98,16 @@ router.get('/:id/edit', async(req, res, next)=>{
         if(!req.user){
             return res.redirect('/login')
         }
-        const word = await Word.findOne({where : { id : req.params.id}});
-        res.render('edit', {word});
+        const word = await Word.findOne({
+            where : { id : req.params.id},
+            include : [{
+                model : User
+            },{
+                model : Category
+            }]
+        });
+        const category = await Category.findAll();
+        res.render('edit', {word, category});
     } catch (error) {
         console.error(error);
         next(error);
@@ -92,14 +127,14 @@ router.post('/', async (req, res, next) => {
     try{
         const word = await Word.findOne({
             where : { spelling, meaning },
-            include : [{ model:  User }, { model: Category }],
+            include : [{ model:  User }]
         });
-        console.log(word);
         if (word){
             const idArr = [];
             for(let i = 0; i<word.users.length; i++){
                 idArr.push(word.users[i].id);
             }
+            console.log(idArr);
             if(idArr.includes(req.user.id)){
                 return res.json({
                     success : false,
@@ -107,7 +142,7 @@ router.post('/', async (req, res, next) => {
                 });
             }else{
                 await word.addUser(req.user.id);
-                await word.addCategory(category);
+                // await word.addCategory(category);
                 return res.json({
                     success : true,
                 });
@@ -118,7 +153,7 @@ router.post('/', async (req, res, next) => {
                 meaning
             });
             await createWord.addUser(req.user.id);
-            await createWord.addCategory(category);
+            // await createWord.addCategory(category);
             return res.json({
                 success : true,
             });
@@ -183,8 +218,15 @@ router.put('/:id', async(req, res, next)=>{
     try {
         const word = await Word.update({
             spelling : req.body.spelling,
-            meaning : req.body.meaning
-        }, { where : {id : req.params.id} });
+            meaning : req.body.meaning,
+            category : req.body.category
+        }, { 
+            where : {id : req.params.id},
+            include : [{
+                model : User,
+                where : {id : req.user.id}
+            }]
+     });
         if(word){
             res.json({
                 success : true

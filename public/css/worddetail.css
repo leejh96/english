@@ -11,6 +11,7 @@
 body{
     margin: 0;
     background-color: var(--body-color);
+    width: 100%;
 }
 .navbar a{
     text-decoration: none;
@@ -62,13 +63,17 @@ body{
     display: none;
     font-size: 24px;
 }
-#title{
-    margin: 0 20% 0 20%;
+#mainTitle{
     font-size: 3rem;
+    margin: 0 20% 0 20%;
+    padding: 2% 0 0 5%;
+}
+#title{
+    
 }
 #main{
     padding: 0;
-    margin: 5% 20% 0 20%;
+    margin: 3% 20% 0 20%;
     background-color: var(--main-background-color);
     margin-bottom: 60px;
 }
@@ -102,7 +107,7 @@ body{
 
 }
 #similarWord{
-    padding: 0;
+    padding: 0 1% 5% 1%;
     margin: 0 20% 0 20%;
     background-color: var(--main-background-color);
 }
@@ -116,4 +121,25 @@ table{
     width: 100%;
     text-align: center;
     font-size: 1.5rem;
+}
+.number{
+    width: 20%;
+}
+.spelling{
+    width: 40%;
+}
+.meaning{
+    width:40%;
+}
+#similarCategory{
+    padding: 0 1% 5% 1%;
+    margin: 0 20% 0 20%;
+    background-color: var(--main-background-color);
+}
+
+
+#similarCategory > h1{
+    padding-top: 20px;
+    font-size: 2rem;
+    text-align: center;
 }
