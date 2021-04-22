@@ -36,8 +36,8 @@ searchBtn.addEventListener('click',()=>{
                 let spelling = newRow.insertCell(1);
                 let meaning = newRow.insertCell(2);
                 number.innerHTML = i+1;
-                spelling.innerHTML = `<a href="/myword/${res.word[i].id}">${res.word[i].spelling}</a>`;
-                meaning.innerHTML = res.word[i].meaning;
+                spelling.innerHTML = `<a href="/myword/${res.word[i].wordId}">${res.word[i].updateSpelling}</a>`;
+                meaning.innerHTML = res.word[i].updateMeaning;
             }
         }else{
             alert(res.message);

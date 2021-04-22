@@ -18,10 +18,20 @@ module.exports = (passport) => {
                     //done(에러, 성공, 실패)
                     return done(null, user);
                 }else{
-                    return done(null, false, {message : '이메일-비밀번호가 일치하지 않습니다'});
+                    return done(null, false, 
+                        {
+                            message : '이메일-비밀번호가 일치하지 않습니다',
+                            success : 'false'
+                        }
+                    );
                 }
             }else{
-                return done(null, false, {message : '가입되지 않은 사용자 입니다'})
+                return done(null, false,
+                    {
+                        message : '이메일-비밀번호가 일치하지 않습니다',
+                        success : 'false'
+                    }
+                );
             }
         } catch (error) {
             console.error(error);

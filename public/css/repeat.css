@@ -1,0 +1,47 @@
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+}
+
+html,body{
+    background-color: var(--body-color);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+body>div{
+    margin: 0 20% 0 20%;
+    background-color: var(--main-background-color);
+}
+#title{
+    margin: 0 20% 0 20%;
+    text-align: center;
+    padding: 5% 0 5% 0;
+    font-size: 3rem;
+}
+table{
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+}
+.wordTable{
+    padding: 0 10% 10% 10%;
+}
+td > input{
+    font-size: 2rem;
+}
+#collectBtn{
+    margin: 0 20% 0 20%;
+    padding: 0 0 5% 0;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+#collectBtn > a>input{
+    font-size: 2rem;
+}

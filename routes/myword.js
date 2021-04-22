@@ -2,27 +2,24 @@
 
 const express = require('express');
 const router = express.Router();
-const { Word, User, Category, Op } = require('../models/');
+const { Word, User, Category, Op, UserWord } = require('../models/');
 
 router.get('/page/:pageNumber', async (req, res, next) => {
     try {
         if(!req.user){
             return res.redirect('/login')
         }
-        const word = await Word.findAll({
-            include : [{
-                model : User,
-                where : { id : req.user.id }
-            }]
+        const word = await UserWord.findAll({
+            where : {
+                userId : req.user.id
+            }
         });
         const words = {
             number : [],
-            spelling: [],
-            meaning:[],
-            id:[],
+            spelling : [],
+            meaning : [],
+            id : [],
         };
-        const totalWordsCount = word.length;
-        const session = req.user;
         const pageNumber = parseInt(req.params.pageNumber);
         let wordCount = pageNumber*10;
         if (wordCount > word.length){
@@ -30,12 +27,12 @@ router.get('/page/:pageNumber', async (req, res, next) => {
         }
         for(let i = (pageNumber-1)*10; i< wordCount; i++){
             words.number.push(i+1);
-            words.spelling.push(word[i].dataValues.spelling);
-            words.meaning.push(word[i].dataValues.meaning);
-            words.id.push(word[i].dataValues.id);
+            words.spelling.push(word[i].updateSpelling);
+            words.meaning.push(word[i].updateMeaning);
+            words.id.push(word[i].wordId);
         }
-        const data = {words, session, totalWordsCount, pageNumber};
-        res.render('myword',{data});
+        const totalWordsCount = word.length;
+        res.render('myword',{words, totalWordsCount});
     } catch (error) {
         console.error(error);
         next(error);
@@ -47,45 +44,25 @@ router.get('/:id', async(req, res, next)=>{
         if(!req.user){
             return res.redirect('/login')
         }
-        const word = await Word.findOne({
+        const word = await UserWord.findOne({
             where : {
-                id: req.params.id
-            },
-            include:[{
-                model : Category
-            }]
+                wordId: req.params.id,
+                userId: req.user.id
+            }
         });
         const similarWords = await Word.findAll({
             where: {
                 meaning : {
-                    [Op.like]: `%${word.meaning.substring(0,2)}%`
+                    [Op.like]: `%${word.updateMeaning.substring(0,2)}%`
                 }
             }
         });
-        const categoryArr = []
-        let similarCategory = {}
-        if(word.categories.length > 1){
-            for(let i = 0; i< word.categories.length; i++){
-                categoryArr.push(word.categories[i].id);
+        const similarCategory = await UserWord.findAll({
+            where : {
+                category : word.category
             }
-            similarCategory = await Word.findAll({
-                where : { id : {[Op.ne] : word.id}},
-                include : [{
-                    model : Category,
-                    where : {
-                        [ Op.in ] : [{id : categoryArr }],
-                    }
-                }]
-            })
-        }else{
-            similarCategory = await Word.findAll({
-                where : { id : {[Op.ne] : word.id}},
-                include : [{
-                    model : Category,
-                    where : { id : word.categories[0].id}
-                }]
-            })
-        }
+        });
+        console.log(similarWords.length, similarCategory.length);
         res.render('worddetail', {word, similarWords, similarCategory});
     } catch (error) {
         console.error(error);
@@ -98,13 +75,11 @@ router.get('/:id/edit', async(req, res, next)=>{
         if(!req.user){
             return res.redirect('/login')
         }
-        const word = await Word.findOne({
-            where : { id : req.params.id},
-            include : [{
-                model : User
-            },{
-                model : Category
-            }]
+        const word = await UserWord.findOne({
+            where : { 
+                userId : req.user.id,
+                wordId : req.params.id
+            }
         });
         const category = await Category.findAll();
         res.render('edit', {word, category});
@@ -129,20 +104,27 @@ router.post('/', async (req, res, next) => {
             where : { spelling, meaning },
             include : [{ model:  User }]
         });
+        console.log(word);
         if (word){
             const idArr = [];
             for(let i = 0; i<word.users.length; i++){
                 idArr.push(word.users[i].id);
             }
-            console.log(idArr);
             if(idArr.includes(req.user.id)){
                 return res.json({
                     success : false,
                     message : '이미 존재하는 단어입니다'
                 });
             }else{
-                await word.addUser(req.user.id);
-                // await word.addCategory(category);
+                await word.addUser(req.user.id,
+                    {
+                        through: {
+                            category,
+                            updateSpelling : spelling,
+                            updateMeaning : meaning              
+                        }
+                    }
+                );
                 return res.json({
                     success : true,
                 });
@@ -152,8 +134,15 @@ router.post('/', async (req, res, next) => {
                 spelling,
                 meaning
             });
-            await createWord.addUser(req.user.id);
-            // await createWord.addCategory(category);
+            await createWord.addUser(req.user.id,
+                {
+                    through: {
+                        category,
+                        updateSpelling : spelling,
+                        updateMeaning : meaning              
+                    }
+                }
+            );
             return res.json({
                 success : true,
             });
@@ -167,14 +156,11 @@ router.post('/search', async (req, res, next)=>{
     const { lang, text } = req.body;
     try {
         if(lang === 'ko'){
-            const word = await Word.findAll({       
+            const word = await UserWord.findAll({       
                 where : {
-                    meaning : text
-                },
-                include : [{
-                    model : User,
-                    where : { id : req.user.id }
-                }]   
+                    updateMeaning : text,
+                    userId : req.user.id,
+                }, 
             });
             if(word.length !== 0){
                 res.json({
@@ -188,14 +174,11 @@ router.post('/search', async (req, res, next)=>{
                 })
             }
         }else{
-            const word = await Word.findAll({       
+            const word = await UserWord.findAll({       
                 where : {
-                    spelling : text
-                },
-                include : [{
-                    model : User,
-                    where : { id : req.user.id }
-                }]   
+                    updateSpelling : text,
+                    userId : req.user.id,
+                }, 
             });
             if(word){
                 res.json({
@@ -216,17 +199,13 @@ router.post('/search', async (req, res, next)=>{
 });
 router.put('/:id', async(req, res, next)=>{
     try {
-        const word = await Word.update({
-            spelling : req.body.spelling,
-            meaning : req.body.meaning,
+        const word = await UserWord.update({
+            updateSpelling : req.body.spelling,
+            updateMeaning : req.body.meaning,
             category : req.body.category
         }, { 
-            where : {id : req.params.id},
-            include : [{
-                model : User,
-                where : {id : req.user.id}
-            }]
-     });
+            where : {wordId : req.params.id},
+        });
         if(word){
             res.json({
                 success : true
@@ -244,7 +223,10 @@ router.put('/:id', async(req, res, next)=>{
 
 router.delete('/:id', (req, res, next)=>{
     try {
-        Word.destroy({ where : {id : req.params.id} });
+        UserWord.destroy({ where : 
+            { wordId : req.params.id,
+             userId : req.user.id } 
+        });
         return res.redirect(`/myword/page/1`);
     } catch (error) {
         console.error(error);

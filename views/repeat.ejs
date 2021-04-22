@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/repeat.css">
     <script src="/js/repeat.js" defer></script>
     <title>복습하기</title>
 </head>
 <body>
-    <a href="/">홈</a>
-
+    <div id="title">
+        <label>복습은 꾸준히!!</label>
+    </div>
     <div class="wordTable">
         <table border="1">
             <thead>
@@ -42,10 +44,9 @@
             </tbody>
         </table>
     </div>
-    <div>
-        <form action="/repeat?_method=put" method="post"">
-            <input type="submit" value="다시하기" id="restart">
-        </form>
+    <div id="collectBtn">
+        <a href="/repeat"><input type="submit" value="다시하기" id="restart"></a>
+        <a href="/"><input type="button" value="취소하기"></a>
     </div>
 </body>
 </html>

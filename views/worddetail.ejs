@@ -29,11 +29,11 @@
         <label id="title">단어 내용</label>
     </div>
     <section id="main">
-        <p id="spelling"><label><%= word.dataValues.spelling%></label></p>
-        <p id="meaning"><label><%= word.dataValues.meaning%></label></p>
+        <p id="spelling"><label><%= word.updateSpelling%></label></p>
+        <p id="meaning"><label><%= word.updateMeaning%></label></p>
         <div id="updateORdelete">
-            <a href="/myword/<%= word.dataValues.id%>/edit"><input type="button" value="수정"></a>
-            <form action="/myword/<%= word.dataValues.id%>?_method=delete" method="post">
+            <a href="/myword/<%=word.wordId%>/edit"><input type="button" value="수정"></a>
+            <form action="/myword/<%=word.wordId%>?_method=delete" method="post">
                 <input type="submit" value="삭제">
             </form>
         </div>
@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%if(similarWords.length === 1){%>
+                <%if(similarWords.length <= 1){%>
                     <tr>
                         <td colspan="3">등록된 단어가 없습니다</td>
                     </tr>
@@ -83,12 +83,14 @@
                         <td colspan="3">등록된 단어가 없습니다</td>
                     </tr>
                 <%}else{%>
+                    <%let count = 0%>
                     <%for(let i = 0; i< similarCategory.length; i++){%>
-                        <%if(!(similarCategory[i].dataValues.spelling === word.dataValues.spelling && similarCategory[i].dataValues.meaning === word.dataValues.meaning)){%>
+                        <%if(!(similarCategory[i].updateSpelling === word.updateSpelling && similarCategory[i].updateMeaning === word.updateMeaning)){%>
+                            <%count += 1%>
                             <tr>
-                                <td class="number"><%= i+1%></td>
-                                <td class="spelling"><%= similarCategory[i].dataValues.spelling%></td>
-                                <td class="meaning"><%= similarCategory[i].dataValues.meaning%></td>
+                                <td class="number"><%= count%></td>
+                                <td class="spelling"><%= similarCategory[i].updateSpelling%></td>
+                                <td class="meaning"><%= similarCategory[i].updateMeaning%></td>
                             </tr>
                         <%}%>
                     <%}%>

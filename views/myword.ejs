@@ -39,11 +39,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%for(let i = 0; i< data.words.number.length;i++){%>
+                    <%for(let i = 0; i< words.number.length;i++){%>
                         <tr>
-                            <td class="number"><%=data.words.number[i]%></td>
-                            <td class="spelling"><a href="/myword/<%= data.words.id[i]%>"><%= data.words.spelling[i] %></a></td>
-                            <td class="meaning"><%= data.words.meaning[i] %></td>
+                            <td class="number"><%=words.number[i]%></td>
+                            <td class="spelling"><a href="/myword/<%=words.id[i]%>"><%=words.spelling[i] %></a></td>
+                            <td class="meaning"><%=words.meaning[i] %></td>
                         </tr>
                     <%}%>
                 </tbody>
@@ -58,7 +58,7 @@
             <a href="/addword"><input type="button" value="추가"></a>
         </div>
         <div id="countingPage">
-            <input type="hidden" name="pageNumber" id="wordCount" value="<%=data.totalWordsCount%>">
+            <input type="hidden" name="pageNumber" id="wordCount" value="<%=totalWordsCount%>">
             <span id="firstPage"></span>
             <span id="leftBtnSpace"></span>
             <span id="countingPageNumber"></span>

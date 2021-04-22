@@ -14,16 +14,11 @@ db.Word = require('./word')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
 db.Comment = require('./comment')(sequelize, Sequelize);
 db.Category = require('./category')(sequelize,Sequelize);
+db.UserWord = require('./userword')(sequelize, Sequelize);
 db.Op = Sequelize.Op;
 
-db.User.belongsToMany(db.Word, {through: 'userWord'});
-db.Word.belongsToMany(db.User, {through: 'userWord'});
-
-db.Word.belongsToMany(db.Category, {through: 'wordCategory'});
-db.Category.belongsToMany(db.Word, 
-    {through: 'wordCategory'},
-    {onDelete: 'CASCADE'}
-);
+db.User.belongsToMany(db.Word, {through: db.UserWord});
+db.Word.belongsToMany(db.User, {through: db.UserWord});
 
 db.User.hasMany(db.Board);
 db.Board.belongsTo(db.User);
