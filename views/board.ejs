@@ -3,38 +3,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/board.css">
+    <script src="/js/board.js" defer></script>
     <title>질문게시판</title>
 </head>
 <body>
-    <a href="/">홈</a>
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-edit"></i>
+            <a href="/">오늘의 단어</a>
+        </div>
+        <ul class="navbar_menu">
+            <% if(!data.session) {%>
+                <li><a href="/login">나의 단어장</a></li>
+            <%}else{%>
+                <li><a href="/myword/page/1">나의 단어장</a></li>
+            <%}%>
+            <li><a href="/repeat">복습하기</a></li>
+            <li><a href="/quiz">오늘의 퀴즈</a></li>
+        </ul>
+        <% if(!data.session) {%>
+        <ul class="navbar_link">
+            <li><a href="/login">로그인</a></li>
+            <li><a href="/signup">회원가입</a></li>
+            <li><i class="fab fa-google"></i></li>
+            <li><i class="fab fa-facebook"></i></li>
+        </ul>
+        <%}else{%>
+        <ul class="navbar_logout">
+            <li><a href="/logout">로그아웃</a></li>
+        </ul>
+        <%}%>
+        <a href="#" class="navbar_toggleBtn">
+            <i class="fas fa-bars"></i>
+        </a>
+    </nav>
+    <div id="title">
+        <a href="/board/page/1"><label>질 문 게 시 판</label></a>
+    </div>
     <div class="board">
-        <table border="1">
+        <table border="1" id="table">
             <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일자</th>
+                    <th id="number">번호</th>
+                    <th id="postTitle">제목</th>
+                    <th id="postAuthor">작성자</th>
+                    <th id="postDate">작성일자</th>
                 </tr>
             </thead>
             <tbody>
-                <% data.post.forEach(function(i){ %> 
+                <% for(let i = 0; i< data.posts.number.length; i++){ %> 
                     <tr>
-                        <td><%=i.dataValues.id%></td>
-                        <td><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></td>
-                        <td><%=i.dataValues.author%></td>
-                        <td><%=i.dataValues.createText%></td>
+                        <td class="number"><%=data.posts.number[i]%></td>
+                        <td class="title"><a href="/board/<%=data.posts.id[i]%>"><%=data.posts.title[i]%></a></td>
+                        <td class="author"><%=data.posts.author[i]%></td>
+                        <td class="createText"><%=data.posts.createText[i]%></td>
                     </tr>
-                <% }) %>
+                <% } %>
             </tbody>
         </table>
     </div>
-    <div>
+    <div id="collectBtn">
         <%if(data.session){%>
             <a href="/addpost"><input type="button" value="글작성"></a>
         <%}else{%>
             <a href="/login"><input type="button" value="글작성"></a>
         <%}%>
+    </div>
+    <div id="countingPage">
+        <input type="hidden" name="" id="postCount" value="<%=data.totalPost%>">
+        <span id="firstPage"></span>
+        <span id="leftBtnSpace"></span>
+        <span id="countingPageNumber"></span>
+        <span id="rightBtnSpace"></span>
+        <span id="lastPage"></span>
+    </div>
+    <div id="search">
+        <select name="" id="auORti">
+            <option value="au" selected>작성자</option>
+            <option value="ti">제목</option>
+        </select>
+        <input type="text" name="" id="searchText">
+        <input type="button" value="검색" id="searchBtn">
     </div>
 </body>
 </html>

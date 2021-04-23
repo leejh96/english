@@ -1,10 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const { Board, Comment } = require('../models');
-router.get('/', async(req,res,next)=>{
-    const post = await Board.findAll();
+router.get('/page/:pageNumber', async(req,res,next)=>{
     const session = req.user;
-    const data = {post, session}
+    const pageNumber = parseInt(req.params.pageNumber);
+    const post = await Board.findAll();
+    const totalPost = post.length;
+    let postCount = pageNumber*10;
+    if (postCount > post.length){
+        postCount = post.length;
+    }
+    const posts = {
+        number : [],
+        title : [],
+        author : [],
+        createText : [],
+        id : [],
+    };
+    for(let i = (pageNumber-1)*10; i<postCount; i++){
+        posts.number.push(i+1);
+        posts.title.push(post[i].title);
+        posts.author.push(post[i].author);
+        posts.createText.push(post[i].createText);
+        posts.id.push(post[i].id);
+    }
+    const data = {posts, session, totalPost}
     res.render('board',{data});
 });
 
@@ -42,7 +62,49 @@ router.post("/", async(req, res, next)=>{
         return next(error);
     }
 });
-
+router.post('/search', async (req, res, next)=>{
+    const { element, text } = req.body;
+    try {
+        if(element === 'au'){
+            const post = await Board.findAll({       
+                where : {
+                    author : text,
+                }, 
+            });
+            if(post.length !== 0){
+                res.json({
+                    success : true,
+                    post
+                })
+            }else{
+                res.json({
+                    success : false,
+                    message : '해당하는 게시물이 없습니다.'
+                })
+            }
+        }else{
+            const post = await Board.findAll({       
+                where : {
+                    title : text,
+                }, 
+            });
+            if(post.length !== 0){
+                res.json({
+                    success : true,
+                    post
+                })
+            }else{
+                res.json({
+                    success : false,
+                    message : '해당하는 게시물이 없습니다.'
+                })
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 router.post('/:id', async(req, res, next)=>{
     try {
         nick = req.user.nick;

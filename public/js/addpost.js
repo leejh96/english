@@ -23,7 +23,7 @@ postCreate.addEventListener('click', ()=>{
     .then(res => res.json())
     .then(res => {
         if(res.success){
-            location.href = '/board';
+            location.href = '/board/page/1';
         }else{
             alert('글 작성을 실패하였습니다.');
             location.href = '/addpost';
