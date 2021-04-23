@@ -15,7 +15,6 @@ html,body{
     margin: 0;
 }
 body>div{
-    margin: 0 20% 0 20%;
     background-color: var(--main-background-color);
 }
 #title{
@@ -29,15 +28,45 @@ table{
     text-align: center;
     font-size: 2rem;
 }
-.wordTable{
-    padding: 0 10% 10% 10%;
+#number{
+    width: 10%
 }
-td > input{
+#spell{
+    width: 40%;
+}
+#mean{
+    width: 40%;
+}
+#confirm{
+    width: 10%;
+}
+.meanBoxSquare>input, .spellBoxSquare>input{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 2.7rem;
+    text-align: center;
+    width: 100%;
+}
+.spelling, .meaning, .meanBoxSquare, .spellBoxSquare{
+    width: 40%;
+}
+.number, .confirmBtnSquare, .confirmBtnSquare2{
+    width: 10%;
+}
+.confirmBtnSquare>input, .confirmBtnSquare2>input{
+    width: 100%;
     font-size: 2rem;
 }
+.wordTable{
+    margin: 0 20% 0 20%;
+    padding: 0 1% 5% 1%;
+    padding-bottom: 5%;
+}
+
 #collectBtn{
     margin: 0 20% 0 20%;
-    padding: 0 0 5% 0;
+    padding-bottom: 5%;
     display: flex;
     text-align: center;
     justify-content: space-evenly;

@@ -1,0 +1,70 @@
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    margin: 10% 0 0 0;
+    background-color: var(--body-color);
+}
+body>div{
+    margin: 0 20% 0 20%;
+    background-color: var(--main-background-color);
+}
+#title{
+    text-align: center;
+    padding: 5% 0 5% 0;
+}
+#title >label{
+    font-size: 3rem;
+}
+#wordTable{
+    padding: 0 1% 0 1%;
+}
+#wordTable >table{
+    width: 100%;
+}
+#spelling{
+    font-size: 2rem;
+}
+tbody>tr>td{
+    margin: 0;
+    padding: 0;
+}
+fieldset{
+    display: flex;
+    margin: 0;
+    padding: 3px 0 3px 0;
+    border: 0;
+    justify-content: space-around;
+}
+fieldset >input{
+    font-size: 2rem;
+    width: 20%;
+}
+#timer{
+    font-size: 3rem;
+    text-align: center;
+}
+#correctCount{
+    padding-top: 16px;
+    font-size: 3rem;
+    text-align: center;
+}
+#collectBtn{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 3% 0 5% 0;
+}
+#collectBtn > a > input{
+    font-size: 3rem;
+}

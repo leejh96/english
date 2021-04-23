@@ -104,7 +104,4 @@ webSocket.onmessage = (e)=>{
     }, 5000 * quizCnt);
 
 };
-restart.addEventListener('click', ()=>{
-    location.href = '/quiz';
-});
 

@@ -3,36 +3,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/quiz.css">
     <script src="/js/quiz.js" defer></script>
     <title>오늘의 퀴즈</title>
 </head>
 <body>
-    <a href="/">홈</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th id="spelling" colspan="4"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="4">
-                    <fieldset id= "btnSet" disabled= "false">
-                        <input type="button" value=""class="btn">
-                        <input type="button" value=""class="btn">
-                        <input type="button" value=""class="btn">
-                        <input type="button" value=""class="btn">    
-                    </fieldset>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td id="timer" colspan="4"></td>
-            </tr>
-        </tfoot>
-    </table>
+    <div id="title">
+        <label>퀴즈를 풀어보자!</label>
+    </div>
+    <div id="wordTable">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th id="spelling" colspan="4"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <fieldset id= "btnSet" disabled= "false">
+                            <input type="button" value=""class="btn">
+                            <input type="button" value=""class="btn">
+                            <input type="button" value=""class="btn">
+                            <input type="button" value=""class="btn">    
+                        </fieldset>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="timer" colspan="4"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
     <div id ="correctCount"></div>
-    <div><input type="button" value="재도전" id="restart"></div>
+    <div id="collectBtn">
+        <a href="/quiz"><input type="button" value="재도전" id="restart"></a>
+        <a href="/"><input type="button" value="취소하기" id="cancel"></a>
+    </div>
 </body>
 </html>
