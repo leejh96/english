@@ -1,3 +1,115 @@
-.updateForm {
-    display: none;
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    background-color: var(--body-color);
+}
+body>div{
+    margin: 0 20% 0 20%;
+    background-color: var(--main-background-color);
+}
+#title{
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
+#title>a{
+    text-decoration: none;
+    color: black;
+}
+#title>a>label{
+    cursor: pointer;
+}
+#title>a:hover{
+    color: cornflowerblue;
+}
+#title>a>label{
+    font-size: 2rem;
+}
+#postContent > table{
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+}
+#postText{
+    height: 300px;
+    padding: 1px;
+    vertical-align: top;
+    text-align: justify;
+}
+#postContent>table>tbody>tr>td{
+    background-color: whitesmoke;
+}
+#updateOrDelete{
+    display: flex;
+    padding: 30px 0 30px 0;
+    justify-content: space-evenly;
+    border-bottom: 1px solid gray;
+}
+#updateOrDelete>a>input, #updateOrDelete>form>input{
+    font-size: 1.5rem;
+}
+#commentTitle{
+    padding: 10px 0 10px 0;
+    text-align: center;
+    font-size: 2rem;
+}
+#commentContent>table{
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+
+}
+#commentAuthor{
+    width: 15%;
+}
+#comment{
+    width: 70%;
+}
+#updateText{
+    width: 15%;
+}
+.updateBtn{
+    width: 100%;
+    font-size: 1.5rem;
+}
+.text{
+    margin-top: 5px;
+    resize: none;
+}
+.updateForm>div>input{
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+.updateForm>div>form>input{
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+#commentText{
+    margin: 10px 0 10px 0;
+    width: 100%;
+    border: 0;
+    padding: 1px 0 0 0;
+    resize: none;
+}
+#commentRegister{
+    margin: 0 40% 0 40%;
+    padding-bottom: 20px;
+}
+#commentTextBtn{
+    font-size: 1.5rem;
+    margin-left: 30%;
 }

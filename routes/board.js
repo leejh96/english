@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { Board, Comment } = require('../models');
 router.get('/page/:pageNumber', async(req,res,next)=>{
+    if(!req.user){
+        return res.redirect('/login');
+    }
     const session = req.user;
     const pageNumber = parseInt(req.params.pageNumber);
     const post = await Board.findAll();
@@ -29,6 +32,9 @@ router.get('/page/:pageNumber', async(req,res,next)=>{
 });
 
 router.get('/:id', async(req, res, next)=>{
+    if(!req.user){
+        return res.redirect('/login')
+    }
     const post = await Board.findOne({where : {id : req.params.id}});
     const comment = await Comment.findAll();
     const session = req.user;
@@ -178,7 +184,7 @@ router.put('/:id/edit', async (req, res, next)=>{
 router.delete('/:id', async (req, res, next)=>{
     try {
         Board.destroy({ where : {id : req.params.id} });
-        return res.redirect('/board');
+        return res.redirect('/board/page/1');
     } catch (error) {
         console.error(error);
         next(error);

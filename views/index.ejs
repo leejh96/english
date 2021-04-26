@@ -68,19 +68,18 @@
                     </thead>
                     <tbody>
                         <% let count = 1 %>
-                        <%data.post.forEach(function(i){%>
+                        <% let postLength = data.post.length - 14;%>
+                        <% if(data.post.length < 14){ %>
+                            <% postLength = 0 %>
+                        <%}%>
+                        <%for(let i = data.post.length-1; i >= postLength; i--){%>
                             <tr>
                                 <td class="count"><%=count%></td>
-                                <% if(!data.session) {%>
-                                    <td class="title"><a href="/login"><%=i.dataValues.title%></a></td>
-                                    <td class="author"><%= i.dataValues.author%></td>
-                                <%}else{%>
-                                    <td class="title"><a href="/board/<%=i.dataValues.id%>"><%=i.dataValues.title%></a></td>
-                                    <td class="author"><%= i.dataValues.author%></td>
-                                <%}%>
+                                <td class="title"><a href="/board/<%=data.post[i].id%>"><%=data.post[i].title%></a></td>
+                                <td class="author"><%= data.post[i].author%></td>
                             </tr>
                             <% count += 1 %>
-                        <%})%>
+                        <%}%>
                     </tbody>
                 </table>
 
@@ -108,7 +107,7 @@
         </div>
     </section>
     <footer>
-        제작자 : 이주혁
+        <label>제작자 : 이주혁</label>
     </footer>
 
 </body>

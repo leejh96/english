@@ -9,54 +9,93 @@
     <title>게시글 <%= data.post.dataValues.title%></title>
 </head>
 <body>
-    <div>
-        <a href="/">홈</a>
-        <p>글 제목</p>
-        <p><%= data.post.dataValues.title%></p>
-        <p>작성자</p>
-        <p><%= data.post.dataValues.author%></p>
-        <p>글 내용</p>
-        <p><%= data.post.dataValues.text%></p>
-        <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
-            <a href="/board/<%= data.post.dataValues.id%>/edit"><input type="button" value="수정"></a>
-            <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
-                <input type="submit" value="삭제">
-            </form>
-        <%}%>
+    <div id="title"><a href="/"><label>오늘의 단어</label></a></div>
+    <div id="postContent">
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th>제목</th>
+                </tr>
+                <tr>
+                    <td><%= data.post.dataValues.title%></td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                </tr>
+                <tr>
+                    <td><%= data.post.dataValues.author%></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                </tr>
+                <tr>
+                    <td id="postText"><%= data.post.dataValues.text%></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="updateOrDelete">
+            <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
+                <a href="/board/<%= data.post.dataValues.id%>/edit"><input type="button" value="수정"></a>
+                <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
+                    <input type="submit" value="삭제">
+                </form>
+            <%}%>
+        </div>
     </div>
 
     <div>
         <%if(data.comment.length !== 0){%>
             <div>
-                <p><h3>comment</h3></p>
-                <% for(let i = 0; i < data.comment.length; i++){ %>
-                    <p>작성자 : <%= data.comment[i].dataValues.nick %></p>
-                    <p>댓글 : <%= data.comment[i].dataValues.text %></p>
-                    <%if(data.comment[i].dataValues.loginId === data.session.dataValues.loginId){%>
-                        <button class="updateBtn">수정하기</button>
-                        <div class="updateForm">
-                            <div>
-                                <textarea name="text" class="text" cols="30" rows="10"></textarea>
-                                <input type="hidden" class="commentId" value = "<%= data.comment[i].dataValues.id%>">
-                                <input type="submit" class="commentBtn"value="수정">
-                            </div>
-                            <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
-                                <input type="submit" value="삭제하기">
-                                <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
-                                <input type="hidden" name="postId" value = "<%= data.post.dataValues.id%>">
-                            </form>
-                        </div>
-                    <%}%>
-                <%}%>
+                <div id="commentTitle">
+                    <label>댓글 <%=data.comment.length%>개</label>
+                </div>
+                <div id="commentContent">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th id="commentAuthor">작성자</th>
+                                <th id="comment">댓글</th>
+                                <th id="updateText">수정</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let i = 0; i < data.comment.length; i++){ %>
+                                <tr>
+                                    <td><%= data.comment[i].dataValues.nick %></td>
+                                    <td><%= data.comment[i].dataValues.text %></td>
+                                    <%if(data.comment[i].dataValues.loginId === data.session.dataValues.loginId){%>
+                                        <td>
+                                            <input type="button" class="updateBtn" value="수정하기"></input>
+                                            <div class="updateForm">
+                                                <div>
+                                                    <textarea name="text" class="text" cols="30" rows="10"><%= data.comment[i].dataValues.text %></textarea>
+                                                    <input type="hidden" class="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                                                    <input type="submit" class="commentBtn"value="수정">
+                                                </div>
+                                                <div>
+                                                    <form action="/board/<%= data.post.id%>/deleteComment?_method=delete" method="post">
+                                                        <input type="submit" value="삭제하기">
+                                                        <input type="hidden" name="commentId" value = "<%= data.comment[i].dataValues.id%>">
+                                                        <input type="hidden" name="postId" value = "<%= data.post.dataValues.id%>">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    <%}else{%>
+                                        <td style="text-align: center;">-</td>
+                                    <%}%>
+                                </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         <%}%>
-        <div>
-            <p><h3>댓글 작성하기</h3></p>
-            <div>
-                <p><textarea name="commentText" id="commentText" cols="30" rows="10" placeholder="댓글을 입력하세요"></textarea></p>
-                <p><input type="submit" id="commentTextBtn" value="등록"></p>
-            </div>
-            
+    </div>
+    <div>
+        <textarea name="commentText" id="commentText"rows="10" placeholder="댓글을 입력하세요"></textarea>
+        <div id="commentRegister">
+            <input type="submit" id="commentTextBtn" value="등록">
         </div>
     </div>
 

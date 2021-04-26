@@ -8,15 +8,16 @@ const postId = document.location.pathname.split('/')[2];
 const text = document.querySelectorAll('.text');
 const commentId = document.querySelectorAll('.commentId');
 const commentBtn = document.querySelectorAll('.commentBtn');
-
 for(let i = 0; i< updateBtn.length; i++){
+    updateForm[i].style.display = 'none';
     updateBtn[i].addEventListener('click', ()=>{
-        if(updateForm[i].style.display === 'block'){
-            updateBtn[i].innerText = '수정하기';
-            updateForm[i].style.display = 'none';
-        }else{
-            updateBtn[i].innerText = '닫기';
+        if(updateBtn[i].value === '수정하기'){
+            updateBtn[i].value = '닫기';
             updateForm[i].style.display = 'block';
+        }else{
+            updateBtn[i].value = '수정하기';
+            updateForm[i].style.display = 'none';
+            text[i].value = '';
         }
     });
 }
