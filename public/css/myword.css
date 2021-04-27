@@ -81,15 +81,14 @@ body{
 }
 table{
     width: 100%;
-    height: 100%;
     text-align: center;
     font-size: 2rem;
 }
-th{
-    height: 10%;
+table>thead>tr>th{
+    height: 54px;
 }
-td{
-    height: 10%;
+table>tbody>tr>td{
+    height: 65px;
 }
 .spelling >a{
     text-decoration: none;
@@ -119,10 +118,11 @@ footer{
 #addBtn{
     width: 50%;
     text-align: center;
+    margin-top: 5px;
 }
 
 #addBtn a>input{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 #countingPage{
     text-align: center;
@@ -134,6 +134,7 @@ footer{
 }
 #search{
     text-align: center;
+    margin-bottom: 10px;
 }
 #leftBtnSpace a, #countingPageNumber a, #rightBtnSpace a, #firstPage a, #lastPage a{
     text-decoration: none;
@@ -141,43 +142,4 @@ footer{
 }
 #countingPage a:hover{
     color: blue;
-}
-@media screen and (max-width: 768px){
-    .navbar{
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 8px 24px; 
-    }
-    .navbar_logo{
-        font-size: 20px;
-    }
-    .navbar_menu{
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .navbar_menu li{
-        width: 100%;
-        text-align: center;
-    }
-    .navbar_link, .navbar_logout{
-        display: none;
-        justify-content: center;
-        width: 100%;
-    }
-    .navbar_toggleBtn{
-        display: block;
-    }
-    .navbar_logout.active,
-    .navbar_menu.active,
-    .navbar_link.active{
-        display: flex;
-    }
-    .main_page{
-        display: flex;
-        flex-direction: column;
-        margin-left: 0;
-        margin-right: 0;
-    }
 }

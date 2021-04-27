@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b359215d2f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/login.css">
     <script src="/js/login.js" defer></script>
     <title>로그인 페이지</title>
 </head>
 <body>
-    <a href="/">홈</a>
+    <a href="/" id="home"><i class="fas fa-edit"></i>오늘의 단어</a>
 	<div class="logout">
 		<input type="hidden">
 	</div>
     <div class="login">
 		<div class="form">
 			<form action="/login" method="post">
-				<input type="text" id = "loginId" name = "loginId" placeholder="아이디" value="sss"/>
+				<input type="text" id = "loginId" name = "loginId" placeholder="아이디" value="aaa"/>
 				<input type="password" id = "loginPassword" name="password" placeholder="비밀번호" value="123" />
 				<button type="submit" id = "loginButton">로그인</button>	
 				<p class="message"> <a href="/signup">회원가입</a></p>

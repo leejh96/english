@@ -54,13 +54,15 @@
                         <td colspan="3">등록된 단어가 없습니다</td>
                     </tr>
                 <%}else{%>
+                    <%let count = 1;%>
                     <%for(let i = 0; i< similarWords.length; i++){%>
-                        <%if(!(similarWords[i].dataValues.spelling === word.dataValues.spelling && similarWords[i].dataValues.meaning === word.dataValues.meaning)){%>
+                        <%if(similarWords[i].spelling !== word.updateSpelling && similarWords[i].meaning !== word.updateMeaning){%>
                             <tr>
-                                <td class="number"><%= i+1%></td>
+                                <td class="number"><%= count%></td>
                                 <td class="spelling"><%= similarWords[i].dataValues.spelling%></td>
                                 <td class="meaning"><%= similarWords[i].dataValues.meaning%></td>
                             </tr>
+                            <%count += 1%>
                         <%}%>
                     <%}%>
                 <%}%>

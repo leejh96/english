@@ -6,6 +6,7 @@ const correctCount = document.querySelector('#correctCount');
 const restart = document.querySelector('#restart');
 const timer = document.querySelector('#timer');
 const btnSet = document.querySelector('#btnSet');
+const wordTable = document.querySelector('#wordTable');
 function spellingInput(answer, cnt){
     spelling.innerHTML = answer.spelling[cnt];
     return spelling.innerHTML;
@@ -57,6 +58,11 @@ function randomEnglish(answer, quizCnt, words){
 
 webSocket.onmessage = (e)=>{
     const words = JSON.parse(e.data);
+    if(words.length < 10){
+        wordTable.style.textAlign = 'center';
+        wordTable.style.fontSize = '2rem';
+        return wordTable.innerHTML = "단어를 10개이상 등록하세요";
+    }
     let answer = { 
         index : [],
         spelling : [],

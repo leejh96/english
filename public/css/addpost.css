@@ -1,0 +1,45 @@
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    height: 80%;
+    margin: 0;
+    background-color: var(--body-color);
+}
+body>div{
+    margin: 10%;
+    padding: 2% 1% 2% 1%;
+    background-color: var(--main-background-color)
+
+}
+table{
+    width: 100%;
+}
+#title{
+    width: 100%;
+    font-size: 2rem;
+}
+#text{
+    width: 100%;
+    font-size: 1.5rem;
+}
+#createPost{
+    margin-bottom: 30px;
+}
+#collectBtn{
+    display: flex;
+    justify-content: space-evenly;
+}
+#postCreate, #collectBtn>a>input{
+    font-size: 2rem;
+}

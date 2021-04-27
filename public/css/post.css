@@ -57,7 +57,33 @@ body>div{
     justify-content: space-evenly;
     border-bottom: 1px solid gray;
 }
-#updateOrDelete>a>input, #updateOrDelete>form>input{
+#updateOrDelete>input, #updateOrDelete>form>input{
+    font-size: 1.5rem;
+}
+#postUpdateForm{
+    display: none;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+#postUpdatetitle{
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+#postUpdateText{
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+#postEditBtn{
+    display: block;
+    margin-left: 47%;
     font-size: 1.5rem;
 }
 #commentTitle{

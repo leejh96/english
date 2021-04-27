@@ -1,5 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+:root{
+  --text-color: #eee1e1;
+  --background-color: #0b0930;
+  --highlight-color: #d49466;
+  --logo-color: #ac9695;
+  --main-background-color: #ebd1d1;
+  --section-color: gainsboro;
+  --body-color:rgb(173, 201, 173);
+}
+i, #home{
+  color: var(--background-color);
+  font-size: 30px;
+}
+#home{
+  text-decoration: none;
+}
 .login, .logout {
   width: 360px;
   padding: 8% 0 0;

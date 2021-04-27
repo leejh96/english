@@ -52,8 +52,8 @@ router.get('/:id', async(req, res, next)=>{
         });
         const similarWords = await Word.findAll({
             where: {
-                meaning : {
-                    [Op.like]: `%${word.updateMeaning.substring(0,2)}%`
+                spelling : {
+                    [Op.like]: `%${word.updateSpelling.substring(0,parseInt(word.updateSpelling.length/2)+1).replace(" ","").toLowerCase()}%`
                 }
             }
         });
@@ -62,7 +62,6 @@ router.get('/:id', async(req, res, next)=>{
                 category : word.category
             }
         });
-        console.log(similarWords.length, similarCategory.length);
         res.render('worddetail', {word, similarWords, similarCategory});
     } catch (error) {
         console.error(error);
@@ -104,7 +103,6 @@ router.post('/', async (req, res, next) => {
             where : { spelling, meaning },
             include : [{ model:  User }]
         });
-        console.log(word);
         if (word){
             const idArr = [];
             for(let i = 0; i<word.users.length; i++){

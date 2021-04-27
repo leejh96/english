@@ -4,18 +4,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/addpost.js" defer></script>
+    <link rel="stylesheet" href="/css/addpost.css">
     <title>게시물 작성</title>
 </head>
 
 <body>
-	<a href="/">홈</a>
     <div>
-        <p>글 제목</p>
-        <p><input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off"/></p>
-        <p>글 내용</p>
-        <p><textarea name="text" id="text" cols="100" rows="10" placeholder="내용을 입력하세요"></textarea></p>
-        <p><input type="submit" id ="postCreate" value="글작성"></p>
+        <div id="createPost">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <th>제목</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off"/></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                    </tr>
+                    <tr>
+                        <td id="postText"><textarea name="text" id="text" cols="100" rows="10" placeholder="내용을 입력하세요"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>        
+        </div>
+        <div id="collectBtn">
+            <input type="submit" id ="postCreate" value="글작성">
+            <a href="/board/page/1"><input type="button" value="닫기"></a>
+        </div>
     </div>
-
 </body>
 </html>

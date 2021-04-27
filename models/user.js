@@ -3,11 +3,11 @@
 module.exports = (sequelize, DataTypes) =>{
     return sequelize.define('user', {
         nick : {
-            type : DataTypes.STRING(15),
+            type : DataTypes.STRING(30),
             allowNull : false,
         },
         loginId: {
-            type : DataTypes.STRING(20),
+            type : DataTypes.STRING(30),
             allowNull : false,
             unique : true,
         },

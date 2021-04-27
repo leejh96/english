@@ -3,11 +3,11 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('board',{
         title : {
-            type :  DataTypes.STRING(20),
+            type :  DataTypes.STRING(50),
             allowNull : false,
         },
         author : {
-            type :  DataTypes.STRING(20),
+            type :  DataTypes.STRING(30),
             allowNull : false,
         },
         text : {

@@ -36,14 +36,12 @@ router.get('/:id', async(req, res, next)=>{
         return res.redirect('/login')
     }
     const post = await Board.findOne({where : {id : req.params.id}});
-    const comment = await Comment.findAll();
+    const comment = await Comment.findAll({
+        where : {boardId : req.params.id}
+    });
     const session = req.user;
     const data = {post, session, comment};
     res.render('post', {data});
-});
-router.get('/:id/edit', async (req, res, next)=>{
-    const id = req.params.id;
-    res.render('postedit', {id});
 });
 
 router.post("/", async(req, res, next)=>{
@@ -137,7 +135,30 @@ router.post('/:id', async(req, res, next)=>{
         return next(error);
     }
 });
+router.put('/:id/edit', async(req, res, next)=>{
+    try {
+        const post = Board.update(
+            {
+                title : req.body.title, 
+                text : req.body.text
+            },{
+                where : {id : req.params.id}
+        });
+        if(post){
+            res.json({
+                success : true
+            });
+        }else{
+            res.json({
+                success : false
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
 
+});
 router.put('/:id', async (req, res, next)=>{
     commentId = req.body.commentId;
     try {
@@ -151,27 +172,6 @@ router.put('/:id', async (req, res, next)=>{
             });
         }else{
             return res.json({
-                success : false
-            });
-        }
-    } catch (error) {
-        console.error(error);
-        next(error);
-    }
-});
-
-router.put('/:id/edit', async (req, res, next)=>{
-    try {
-        const post = await Board.update({
-            title : req.body.title,
-            text : req.body.text
-        }, { where : {id : req.params.id} })
-        if(post){
-            res.json({
-                success : true
-            });
-        }else{
-            res.json({
                 success : false
             });
         }

@@ -191,50 +191,10 @@ a{
 }
 footer{
     height: 2%;
-    padding-top: 0.4rem;
     display: block;
     text-align: center;
+    padding: 10px 0 10px 0;
 }
 
 
 
-
-@media screen and (max-width: 768px){
-    .navbar{
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 8px 24px; 
-    }
-    .navbar_logo{
-        font-size: 20px;
-    }
-    .navbar_menu{
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .navbar_menu li{
-        width: 100%;
-        text-align: center;
-    }
-    .navbar_link. .navbar_logout{
-        display: none;
-        justify-content: center;
-        width: 100%;
-    }
-    .navbar_toggleBtn{
-        display: block;
-    }
-    .navbar_logout.active,
-    .navbar_menu.active,
-    .navbar_link.active{
-        display: flex;
-    }
-    .main_page{
-        display: flex;
-        flex-direction: column;
-        margin-left: 0;
-        margin-right: 0;
-    }
-}

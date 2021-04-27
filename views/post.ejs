@@ -35,12 +35,17 @@
         </table>
         <div id="updateOrDelete">
             <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
-                <a href="/board/<%= data.post.dataValues.id%>/edit"><input type="button" value="수정"></a>
+                <input type="button" value="수정" id="postUpdateBtn">
                 <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
                     <input type="submit" value="삭제">
                 </form>
             <%}%>
         </div>
+        <div id="postUpdateForm">
+            <input type="text" id="postUpdatetitle" name="title" placeholder="제목을 입력하세요"autocomplete="off" value="<%=data.post.title%>"/>
+            <textarea name="text" id="postUpdateText" cols="100" rows="20" placeholder="내용을 입력하세요"><%=data.post.text%></textarea>
+            <input type="submit" id ="postEditBtn" value="수정">
+        </div> 
     </div>
 
     <div>

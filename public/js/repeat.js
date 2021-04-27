@@ -1,5 +1,4 @@
 "use strict";
-
 const meanbox = document.querySelectorAll('.meanBox');
 const confirmBtn = document.querySelectorAll('.confirmBtn');
 const spell = document.querySelectorAll('.spelling');
@@ -11,6 +10,13 @@ const spellBoxSquare = document.querySelectorAll('.spellBoxSquare');
 const meaning = document.querySelectorAll('.meaning');
 const confirmBtn2 = document.querySelectorAll('.confirmBtn2');
 const confirmBtnSquare2 = document.querySelectorAll('.confirmBtnSquare2');
+const wordTable = document.querySelector('.wordTable');
+
+if(spell.length === 0){
+    wordTable.style.fontSize = '2rem';
+    wordTable.style.textAlign = 'center';
+    wordTable.innerHTML = '<label>단어를 한 개 이상 등록하세요</label>'
+}
 
 for(let i = 0; i< confirmBtn.length; i++){
     confirmBtn[i].addEventListener('click', () => {

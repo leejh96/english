@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) =>{
     return sequelize.define('comment', {
         loginId: {
-            type : DataTypes.STRING(20),
+            type : DataTypes.STRING(30),
             allowNull : false,
         },
         nick: {
