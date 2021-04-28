@@ -32,9 +32,17 @@ table{
 #text{
     width: 100%;
     font-size: 1.5rem;
+    resize: none;
 }
 #createPost{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+}
+#multerBtn{
+    text-align: right;
+}
+#uploadBtn{
+    margin-bottom: 20px;
+    font-size: 1rem;
 }
 #collectBtn{
     display: flex;

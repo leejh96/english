@@ -1,6 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const { Board, Comment } = require('../models');
+const multer = require('multer');
+
+const upload = multer({
+    //storage는 업로드 파일을 어디에 저장할지 선택하는 것으로
+    //diskStorage는 서버의 디스크에 저장하고
+    //외부스토리지에 저장하는 법도 있다.
+    storage: multer.diskStorage({
+        destination(req, file, cb){
+            cb(null, './public/uploads');
+        },
+
+        filename(req, file, cb){
+            const ext = `.${file.originalname.split('.')[1]}`;
+            cb(null, file.originalname.split('.')[0] + Date.now() + ext);    
+        }
+    }),
+    limits: {fileSize: 5 * 1024 *1024}
+});
 router.get('/page/:pageNumber', async(req,res,next)=>{
     if(!req.user){
         return res.redirect('/login');
@@ -44,18 +62,30 @@ router.get('/:id', async(req, res, next)=>{
     res.render('post', {data});
 });
 
-router.post("/", async(req, res, next)=>{
+router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
     try {
+        let uploads = null;
+        if(req.file){
+            uploads = req.file.path;
+        }
         const post = await Board.create({
             title : req.body.title,
             author : req.user.dataValues.nick,
             text : req.body.text,
-            userId : req.user.dataValues.id
+            userId : req.user.dataValues.id,
+            uploads
         });
         if(post){
-            return res.json({
-                success : true
-            });
+            if(post.uploads){
+                return res.json({
+                    success : true,
+                    url : req.file.path
+                });
+            }else{
+                return res.json({
+                    success :true,
+                })
+            }
         }else{
             return res.json({
                 success : false

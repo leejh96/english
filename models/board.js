@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
             type :  DataTypes.DATE,
             defaultValue : sequelize.literal('now()'),
 
-        }
+        },
+        uploads : {
+            type : DataTypes.STRING(200),
+            allowNull: true,
+        },
     }, {
         timestamps : false,
         dialectOptions: {
