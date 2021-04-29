@@ -20,6 +20,7 @@ router.get('/page/:pageNumber', async (req, res, next) => {
             meaning : [],
             id : [],
         };
+        const session = req.user;
         const pageNumber = parseInt(req.params.pageNumber);
         let wordCount = pageNumber*10;
         if (wordCount > word.length){
@@ -32,7 +33,7 @@ router.get('/page/:pageNumber', async (req, res, next) => {
             words.id.push(word[i].wordId);
         }
         const totalWordsCount = word.length;
-        res.render('myword',{words, totalWordsCount});
+        res.render('myword',{session, words, totalWordsCount});
     } catch (error) {
         console.error(error);
         next(error);

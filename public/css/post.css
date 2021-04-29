@@ -80,6 +80,11 @@ body>div{
     padding: 0;
     margin-bottom: 10px;
     font-size: 1.5rem;
+    resize: none;
+}
+#updateUpload{
+    text-align: right;
+    margin-bottom: 10px;
 }
 #postEditBtn{
     display: block;
@@ -138,4 +143,7 @@ body>div{
 #commentTextBtn{
     font-size: 1.5rem;
     margin-left: 30%;
+}
+#img{
+    cursor: pointer;
 }

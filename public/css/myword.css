@@ -57,6 +57,9 @@ body{
     color: var(--text-color);
     padding-left: 0;
 }
+#nick{
+    margin-right: 10px;
+}
 .navbar_link li{
     padding: 8px 12px;
 }

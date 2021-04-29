@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { Board, Comment } = require('../models');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 const upload = multer({
     //storage는 업로드 파일을 어디에 저장할지 선택하는 것으로
@@ -66,7 +68,7 @@ router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
     try {
         let uploads = null;
         if(req.file){
-            uploads = req.file.path;
+            uploads = req.file.filename;
         }
         const post = await Board.create({
             title : req.body.title,
@@ -76,21 +78,11 @@ router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
             uploads
         });
         if(post){
-            if(post.uploads){
-                return res.json({
-                    success : true,
-                    url : req.file.path
-                });
-            }else{
-                return res.json({
-                    success :true,
-                })
-            }
-        }else{
-            return res.json({
-                success : false
-            });
+            return res.redirect('/board/page/1'); 
         }
+        return res.json({
+            message : '글 작성에 실패했습니다'
+        })
     } catch (error) {
         console.error(error);
         return next(error);
@@ -165,24 +157,38 @@ router.post('/:id', async(req, res, next)=>{
         return next(error);
     }
 });
-router.put('/:id/edit', async(req, res, next)=>{
+router.put('/:id/edit', upload.single('updateUploadBtn'), async(req, res, next)=>{
+    if(!req.user){
+        return res.redirect('/login');
+    }
     try {
+        const img = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
+        if(img.uploads){
+            await fs.unlink(`./public/uploads/${img.uploads}`, (error) => {
+                if(error){
+                    console.error(error);
+                    return res.redirect('/board/page/1');
+                }
+            })
+        }
+        let uploads = null;
+        if(req.file){
+            uploads = req.file.filename;
+        }
         const post = Board.update(
             {
                 title : req.body.title, 
-                text : req.body.text
+                text : req.body.text,
+                uploads
             },{
                 where : {id : req.params.id}
         });
-        if(post){
-            res.json({
-                success : true
-            });
-        }else{
-            res.json({
+        if(!post){
+            return res.json({
                 success : false
-            });
+            })
         }
+        return res.redirect(`/board/${req.params.id}`);
     } catch (error) {
         console.error(error);
         next(error);
@@ -190,7 +196,7 @@ router.put('/:id/edit', async(req, res, next)=>{
 
 });
 router.put('/:id', async (req, res, next)=>{
-    commentId = req.body.commentId;
+    const commentId = req.body.commentId;
     try {
         const comment = await Comment.update({
             text : req.body.text
@@ -213,7 +219,14 @@ router.put('/:id', async (req, res, next)=>{
 
 router.delete('/:id', async (req, res, next)=>{
     try {
-        Board.destroy({ where : {id : req.params.id} });
+        const img = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
+        fs.unlink(`./public/uploads/${img.uploads}`, (error) => {
+            if(error){
+                console.error(error);
+                return res.redirect('/board/page/1');
+            }
+        })
+        await Board.destroy({ where : {id : req.params.id} });
         return res.redirect('/board/page/1');
     } catch (error) {
         console.error(error);

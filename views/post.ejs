@@ -29,22 +29,41 @@
                     <th>내용</th>
                 </tr>
                 <tr>
-                    <td id="postText"><%= data.post.dataValues.text%></td>
+                    <td id="postText">
+                        <%if(data.post.uploads){%>
+                            <img id="img"src="/uploads/<%=data.post.uploads%>" alt="uploads" style="display: block; " width="200" height="200">
+                        <%}else{%>
+                            <img id="img"src="/uploads/<%=data.post.uploads%>" alt="uploads" style="display: none; " width="200" height="200">
+                        <%}%>
+                        <%=data.post.dataValues.text%>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <div id="updateOrDelete">
-            <%if(data.post.dataValues.userId === data.session.dataValues.id){%>
+        <%if(data.post.userId === data.session.id){%>
+            <div id="updateOrDelete">
+                    <input type="button" value="수정" id="postUpdateBtn">
+                    <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
+                        <input type="submit" value="삭제">
+                    </form>
+            </div>
+        <%}else{%>
+            <div id="updateOrDelete" style="display: none;">
                 <input type="button" value="수정" id="postUpdateBtn">
                 <form action="/board/<%=data.post.dataValues.id%>?_method=delete" method="post">
                     <input type="submit" value="삭제">
                 </form>
-            <%}%>
-        </div>
+            </div>
+        <%}%>
         <div id="postUpdateForm">
-            <input type="text" id="postUpdatetitle" name="title" placeholder="제목을 입력하세요"autocomplete="off" value="<%=data.post.title%>"/>
-            <textarea name="text" id="postUpdateText" cols="100" rows="20" placeholder="내용을 입력하세요"><%=data.post.text%></textarea>
-            <input type="submit" id ="postEditBtn" value="수정">
+            <form action="/board/<%=data.post.id%>/edit?_method=put" method="post" enctype="multipart/form-data">
+                <input type="text" id="postUpdatetitle" name="title" placeholder="제목을 입력하세요"autocomplete="off" value="<%=data.post.title%>" required/>
+                <textarea name="text" id="postUpdateText" cols="100" rows="20" placeholder="내용을 입력하세요" required><%=data.post.text%></textarea>
+                <div  id="updateUpload">
+                    <input type="file" name="updateUploadBtn" id="updateUploadBtn">
+                </div>
+                <input type="submit" id ="postEditBtn" value="수정">
+            </form>
         </div> 
     </div>
 

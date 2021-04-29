@@ -28,7 +28,6 @@ const postUpdatetitle = document.querySelector('#postUpdatetitle');
 const postUpdateText = document.querySelector('#postUpdateText');
 const postEditBtn = document.querySelector('#postEditBtn');
 const postUpdateForm = document.querySelector('#postUpdateForm');
-
 postUpdateBtn.addEventListener('click',()=>{
     if(postUpdateForm.style.display === 'block'){
         postUpdateForm.style.display = 'none';
@@ -37,35 +36,6 @@ postUpdateBtn.addEventListener('click',()=>{
         postUpdateForm.style.display = 'block';
         postUpdateBtn.value = '닫기';
     }
-});
-
-postEditBtn.addEventListener('click', ()=>{
-    if(!postUpdatetitle.value){
-        return alert('제목을 입력하세요');
-    }
-    if(!postUpdateText.value){
-        return alert('내용을 입력하세요');
-    }
-    const post = {
-        title : postUpdatetitle.value,
-        text : postUpdateText.value,
-    };
-    fetch(`/board/${postId}/edit`, {
-        method : 'put',
-        headers : {
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify(post)
-    })
-    .then(res => res.json())
-    .then(res => {
-        if (res.success){
-            location.href = `/board/${postId}`;
-        }else{
-            alert('글 수정에 실패했습니다.');
-            location.href = `/board/${postId}`;
-        }
-    })
 });
 
 commentTextBtn.addEventListener('click', ()=>{
@@ -121,3 +91,14 @@ for(let i = 0; i<commentBtn.length; i++){
         }
     });
 }
+const img = document.querySelector('#img');
+img.addEventListener('click', ()=>{
+    if(img.width === 200){
+        img.width = "400";
+        img.height = "400";
+    }else{
+        img.width = "200";
+        img.height = "200";
+    }
+})
+

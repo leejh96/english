@@ -40,6 +40,9 @@ table{
 #multerBtn{
     text-align: right;
 }
+#multerBtn >input{
+    margin: 10px 0 10px 0;
+}
 #uploadBtn{
     margin-bottom: 20px;
     font-size: 1rem;
