@@ -4,7 +4,9 @@ const { Board, Comment } = require('../models');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const isLogin = require('../middleware/middleware');
 
+router.use(isLogin);
 const upload = multer({
     //storage는 업로드 파일을 어디에 저장할지 선택하는 것으로
     //diskStorage는 서버의 디스크에 저장하고
@@ -15,16 +17,13 @@ const upload = multer({
         },
 
         filename(req, file, cb){
-            const ext = `.${file.originalname.split('.')[1]}`;
+            const ext = path.extname(file.originalname);
             cb(null, file.originalname.split('.')[0] + Date.now() + ext);    
         }
     }),
     limits: {fileSize: 5 * 1024 *1024}
 });
 router.get('/page/:pageNumber', async(req,res,next)=>{
-    if(!req.user){
-        return res.redirect('/login');
-    }
     const session = req.user;
     const pageNumber = parseInt(req.params.pageNumber);
     const post = await Board.findAll();
@@ -52,9 +51,6 @@ router.get('/page/:pageNumber', async(req,res,next)=>{
 });
 
 router.get('/:id', async(req, res, next)=>{
-    if(!req.user){
-        return res.redirect('/login')
-    }
     const post = await Board.findOne({where : {id : req.params.id}});
     const comment = await Comment.findAll({
         where : {boardId : req.params.id}
@@ -88,6 +84,32 @@ router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
         return next(error);
     }
 });
+// router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
+//     try {
+//         console.log(req.body);
+//         let ext = path.extname(req.body.file);
+//         let uploads = req.body.file.split('.')[0] + Date.now() + ext;
+//         const post = await Board.create({
+//             title : req.body.title,
+//             author : req.user.dataValues.nick,
+//             text : req.body.text,
+//             userId : req.user.dataValues.id,
+//             uploads
+//         });
+//         if(post){
+//             return res.json({
+//                 success : true
+//             }); 
+//         }
+//         return res.json({
+//             success : false,
+//             message : '글 작성에 실패했습니다'
+//         })
+//     } catch (error) {
+//         console.error(error);
+//         return next(error);
+//     }
+// });
 router.post('/search', async (req, res, next)=>{
     const { element, text } = req.body;
     try {
@@ -158,9 +180,6 @@ router.post('/:id', async(req, res, next)=>{
     }
 });
 router.put('/:id/edit', upload.single('updateUploadBtn'), async(req, res, next)=>{
-    if(!req.user){
-        return res.redirect('/login');
-    }
     try {
         const img = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
         if(img.uploads){
@@ -193,8 +212,8 @@ router.put('/:id/edit', upload.single('updateUploadBtn'), async(req, res, next)=
         console.error(error);
         next(error);
     }
-
 });
+
 router.put('/:id', async (req, res, next)=>{
     const commentId = req.body.commentId;
     try {

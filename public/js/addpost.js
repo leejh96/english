@@ -1,7 +1,11 @@
 const title = document.querySelector('#title');
 const text = document.querySelector('#text');
 const postCreate = document.querySelector('#postCreate');
+const fileBtn = document.querySelector('#fileBtn');
+
 postCreate.addEventListener('click', ()=>{
+    filename = fileBtn.files[0].name;
+    console.log(fileBtn.files[0]);
     if(!title.value){
         return alert('제목을 입력하세요');
     }
@@ -10,7 +14,8 @@ postCreate.addEventListener('click', ()=>{
     }
     const post = {
         title : title.value,
-        text : text.value
+        text : text.value,
+        file : filename
     };
     fetch('/board', {
         method : "post",
@@ -29,5 +34,3 @@ postCreate.addEventListener('click', ()=>{
         }
     })
 });
-
-

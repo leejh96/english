@@ -3,11 +3,10 @@
 const express = require('express');
 const router = express.Router();
 const { User, Word } = require('../models');
+const isLogin = require('../middleware/middleware');
 
+router.use(isLogin);
 router.get('/', async (req, res, next) => {
-    if(!req.user){
-        return res.redirect('/login');
-    }
     const words = await Word.findAll({
         include : [{
             model : User,

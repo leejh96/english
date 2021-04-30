@@ -20,7 +20,6 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const {sequelize} = require('./models');
 const passportConfig = require('./passport/index');
-
 require('dotenv').config();
 sequelize.sync()
 

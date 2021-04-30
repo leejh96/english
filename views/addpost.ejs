@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="/js/addpost.js" defer></script> -->
     <link rel="stylesheet" href="/css/addpost.css">
     <title>게시물 작성</title>
 </head>
@@ -16,18 +17,18 @@
                         <th>제목</th>
                     </tr>
                     <tr>
-                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off" required/></td>
+                        <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <th>내용</th>
                     </tr>
                     <tr>
-                        <td id="postText"><textarea name="text" id="text" cols="100" rows="10" placeholder="내용을 입력하세요" required></textarea></td>
+                        <td id="postText"><textarea name="text" id="text" cols="100" rows="10" placeholder="내용을 입력하세요"></textarea></td>
                     </tr>
                 </tbody>
             </table>        
             <div id="multerBtn">
-                    <input type="file" name="uploadBtn">
+                    <input type="file" name="uploadBtn" id="fileBtn">
                 <div id="collectBtn">
                     <input type="submit" id ="postCreate" value="글작성">
                     <a href="/board/page/1"><input type="button" value="닫기"></a>

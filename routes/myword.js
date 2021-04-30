@@ -3,12 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const { Word, User, Category, Op, UserWord } = require('../models/');
+const isLogin = require('../middleware/middleware');
 
-router.get('/page/:pageNumber', async (req, res, next) => {
+router.use(isLogin);
+router.get('/page/:pageNumber', async(req, res, next) => {
     try {
-        if(!req.user){
-            return res.redirect('/login')
-        }
         const word = await UserWord.findAll({
             where : {
                 userId : req.user.id
@@ -42,9 +41,6 @@ router.get('/page/:pageNumber', async (req, res, next) => {
 
 router.get('/:id', async(req, res, next)=>{
     try {
-        if(!req.user){
-            return res.redirect('/login')
-        }
         const word = await UserWord.findOne({
             where : {
                 wordId: req.params.id,
@@ -54,7 +50,7 @@ router.get('/:id', async(req, res, next)=>{
         const similarWords = await Word.findAll({
             where: {
                 spelling : {
-                    [Op.like]: `%${word.updateSpelling.substring(0,parseInt(word.updateSpelling.length/2)+1).replace(" ","").toLowerCase()}%`
+                    [Op.like]: `%${word.updateSpelling.replace(" ","").toLowerCase().substring(0,parseInt(word.updateSpelling.length/2)+1)}%`
                 }
             }
         });
@@ -72,9 +68,6 @@ router.get('/:id', async(req, res, next)=>{
 
 router.get('/:id/edit', async(req, res, next)=>{
     try {
-        if(!req.user){
-            return res.redirect('/login')
-        }
         const word = await UserWord.findOne({
             where : { 
                 userId : req.user.id,

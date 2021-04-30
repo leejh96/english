@@ -102,3 +102,15 @@ img.addEventListener('click', ()=>{
     }
 })
 
+// fetch(`/board/${postId}/edit`)
+// .then(res => {
+//     if(res.status !== 200){
+//         alert('수정 완료!');
+//     }else{
+//         return res.json();
+//     }
+// })
+// .then(res =>{
+//     alert('글 수정에 실패했습니다.');
+//     return location.href = `/board/${postId}`
+// })

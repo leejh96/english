@@ -1,11 +1,9 @@
 "use strict";
 
 const express = require('express');
+const isLogin = require('../middleware/middleware');
 const router = express.Router();
-router.get('/', (req,res,next)=>{
-    if(!req.user){
-        return res.redirect('/login');
-    }
+router.get('/', isLogin, (req,res,next)=>{
     res.render('addpost');
 });
 
