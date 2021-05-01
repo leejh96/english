@@ -70,11 +70,3 @@ toggleBtn.addEventListener('click', ()=>{
     loginLinks.classList.toggle('active');
     logout.classList.toggle('active');
 });
-
-fetch("/")
-.then(res => res.json())
-.then(console.log)
-.catch(console.error)
-
-
-

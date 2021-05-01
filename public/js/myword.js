@@ -66,6 +66,9 @@ if(pageInt === 1){
 }else{
     leftBtnSpace.innerHTML = `<a href="/myword/page/${pageInt-1}"><</a> `;
 }
+if(repeatCount === 0){
+    countingPageNumber.innerHTML += `<a href="/myword/page/1" style="text-decoration : underline;" class="aTags">1</a> `;
+}  
 for(let i = 0; i < repeatCount; i++){
     if (i >= pageCnt){
         break;
@@ -78,7 +81,7 @@ for(let i = 0; i < repeatCount; i++){
         }
     }
 }
-    
+  
 if(pageInt === repeatCount){
     rightBtn.innerHTML ='';
 }else{
@@ -99,4 +102,9 @@ if(pageInt > pageCnt){
         }
     }
 }
-lastPage.innerHTML = `<a href="/myword/page/${repeatCount}"> 끝</a>`;
+if(repeatCount === 0){
+    lastPage.innerHTML = `<a href="/myword/page/1"> 끝</a>`;
+}else{
+    lastPage.innerHTML = `<a href="/myword/page/${repeatCount}"> 끝</a>`;
+}
+
