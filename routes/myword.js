@@ -150,7 +150,9 @@ router.post('/search', async (req, res, next)=>{
         if(lang === 'ko'){
             const word = await UserWord.findAll({       
                 where : {
-                    updateMeaning : text,
+                    updateMeaning : {
+                        [Op.like]: `%${text}%`
+                    },
                     userId : req.user.id,
                 }, 
             });
@@ -168,7 +170,9 @@ router.post('/search', async (req, res, next)=>{
         }else{
             const word = await UserWord.findAll({       
                 where : {
-                    updateSpelling : text,
+                    updateSpelling : {
+                        [Op.like]: `%${text}%`
+                    },
                     userId : req.user.id,
                 }, 
             });

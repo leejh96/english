@@ -12,6 +12,7 @@
     <script src="/js/index.js" defer></script>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="navbar_logo">
             <i class="fas fa-edit"></i>
@@ -34,6 +35,7 @@
         <%}else{%>
         <ul class="navbar_logout">
             <li id="nick"><%=data.session.nick%>님</li>
+            <li><a href="/setting"><i id ="setting"class="fas fa-cog"></a></i></li>
             <li><a href="/logout">로그아웃</a></li>
         </ul>
         <%}%>

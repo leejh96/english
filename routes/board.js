@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Board, Comment } = require('../models');
+const { Board, Comment, Op } = require('../models');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -114,10 +114,12 @@ router.post('/search', async (req, res, next)=>{
     const { element, text } = req.body;
     try {
         if(element === 'au'){
-            const post = await Board.findAll({       
+            const post = await Board.findAll({
                 where : {
-                    author : text,
-                }, 
+                    author : {
+                        [Op.like]: `%${text}%`
+                    }
+                }
             });
             if(post.length !== 0){
                 res.json({
@@ -133,7 +135,9 @@ router.post('/search', async (req, res, next)=>{
         }else{
             const post = await Board.findAll({       
                 where : {
-                    title : text,
+                    title : {
+                        [Op.like]: `%${text}%`
+                    }
                 }, 
             });
             if(post.length !== 0){

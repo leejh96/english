@@ -79,19 +79,15 @@ body{
 #mainPage div{
     width: 50%;
 }
-.wordTable{
-    border-bottom: 1px solid gray;
+table,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 table{
     width: 100%;
+    height: 100%;
     text-align: center;
     font-size: 2rem;
-}
-table>thead>tr>th{
-    height: 54px;
-}
-table>tbody>tr>td{
-    height: 65px;
 }
 .spelling >a{
     text-decoration: none;

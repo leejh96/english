@@ -58,7 +58,12 @@ a{
     padding-left: 0;
 }
 #nick{
+    margin-right: 5px;
+}
+.navbar_logout>li>a>i{
+    font-size: 8px;
     margin-right: 10px;
+    cursor: pointer;
 }
 .navbar_link li{
     padding: 8px 12px;
@@ -138,6 +143,8 @@ a{
     margin-right: auto;
     text-align: center;
     width: 90%;
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 .main_board a{
     color: black;
@@ -160,6 +167,8 @@ a{
 .todayEng table{
     text-align: center;
     margin: 0 auto 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
     width: 90%;
 }
 #postId{

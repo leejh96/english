@@ -27,16 +27,17 @@ searchBtn.addEventListener('click',()=>{
     .then(res => res.json())
     .then(res => {
         if(res.success){
-            while (table.rows.length !== 0){
-                table.deleteRow(0);
+            while (table.rows.length !== 1){
+                table.deleteRow(1);
             }
+            let height = 0;
             for(let i = 0; i< res.word.length; i++){
                 let newRow = table.insertRow();
                 let number = newRow.insertCell(0);
                 let spelling = newRow.insertCell(1);
                 let meaning = newRow.insertCell(2);
                 number.innerHTML = i+1;
-                spelling.innerHTML = `<a href="/myword/${res.word[i].wordId}">${res.word[i].updateSpelling}</a>`;
+                spelling.innerHTML = `<a href="/myword/${res.word[i].wordId}"  style="text-decoration: none; color: black;">${res.word[i].updateSpelling}</a>`;
                 meaning.innerHTML = res.word[i].updateMeaning;
             }
         }else{
