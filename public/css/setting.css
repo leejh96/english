@@ -1,0 +1,108 @@
+:root{
+    --text-color: #eee1e1;
+    --background-color: #0b0930;
+    --highlight-color: #d49466;
+    --logo-color: #ac9695;
+    --main-background-color: #ebd1d1;
+    --section-color: gainsboro;
+    --body-color:rgb(173, 201, 173);
+}
+html, body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    margin: 0;
+    background-color: var(--body-color);
+}
+.navbar a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+.navbar{
+    height: 8%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background-color);
+    align-items: center;
+    padding: 8px 12px;
+}
+.navbar_logo{
+    color: var(--text-color);
+    font-size: 30px;
+}
+.navbar_logo i{
+    color: var(--logo-color);
+}
+.navbar_logout {
+    display: flex;
+    list-style: none;
+    color: var(--text-color);
+    padding-left: 0;
+}
+#nick{
+    margin-right: 10px;
+}
+aside{
+    padding: 3% 0 3% 0;
+    float: left;
+    text-align: center;
+    width: 15%;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+aside>label{
+    font-size: 1.5rem;
+}
+aside>ul{
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+}
+aside>ul>li{
+    margin-bottom: 5px;
+    padding-left: 15%;
+    text-align: left;
+}
+aside>ul>li:hover{
+    color: blue;
+}
+#clientUpdate{
+    margin: 5% 20% 5% 20%;
+}
+#updateTitle{
+    text-align: center;
+    margin-bottom: 5%;
+}
+#updateTitle>label{
+    font-size: 3rem;
+}
+#nickChange{
+    text-align: center;
+}
+#nickChange>input, #nickChange>a>input{
+    margin-bottom: 3%;
+}
+#nickname, #name, #password, #passwordConfirm, #currentPassword{
+    width: 100%;
+    font-size: 3rem;
+}
+#nickregister, #passwordregister{
+    margin-left: -10px;
+    margin-right: 10px;
+}
+#nickregister, #passwordregister, .home{
+    font-size: 3rem;
+}
+#passwordChange{
+    text-align: center;
+}
+#passwordChange>input, #passwordChange>a>input{
+    margin-bottom: 3%;
+}
+#withdrawal{
+    text-align: center;
+}
+#withdrawal>p, #withdrawal>input{
+    font-size: 1.5rem;
+}

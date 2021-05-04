@@ -21,7 +21,7 @@ module.exports = (passport) => {
                     return done(null, false, 
                         {
                             message : '이메일-비밀번호가 일치하지 않습니다',
-                            success : 'false'
+                            success : false
                         }
                     );
                 }
@@ -29,7 +29,7 @@ module.exports = (passport) => {
                 return done(null, false,
                     {
                         message : '이메일-비밀번호가 일치하지 않습니다',
-                        success : 'false'
+                        success : false
                     }
                 );
             }

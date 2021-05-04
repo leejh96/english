@@ -3,9 +3,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setting</title>
+    <link rel="stylesheet" href="/css/setting.css">
+    <script src="/js/setting.js" defer></script>
+    <script src="https://kit.fontawesome.com/b359215d2f.js" crossorigin="anonymous"></script>
+    <title>회원 정보 수정</title>
 </head>
 <body>
-    
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-edit"></i>
+            <a href="/">오늘의 단어</a>
+        </div>
+        <ul class="navbar_logout">
+            <li id="nick"><%=user.nick%>님</li>
+            <li><a href="/logout">로그아웃</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <label>목록</label>
+        <ul>
+            <li id="listnick">닉네임 변경</li>
+            <li id="listpassword">비밀번호 변경</li>
+            <li id="listwithdrawal">회원탈퇴</li>
+        </ul>
+    </aside>
+    <div id="clientUpdate">
+        <div id="updateTitle" >
+            <label>닉네임 변경</label>
+        </div>
+        <div id="updateForm">
+            <div id="nickChange">
+                <input type="text" name="" id="nickname" placeholder="닉네임" value="<%=user.nick%>">
+                <input type="button" id="nickregister" value="저장">
+                <a href="/"><input type="button" value="취소" class="home"></a>
+            </div>
+            <div id="passwordChange" style="display: none;">
+                <input type="password" name="" id="currentPassword" placeholder="현재 비밀번호">
+                <input type="password" name="" id="password" placeholder="비밀번호">
+                <input type="password" name="" id="passwordConfirm" placeholder="비밀번호 확인">
+                <input type="button" id="passwordregister" value="저장">
+                <a href="/"><input type="button" value="취소" class="home"></a>
+            </div>
+        </div>
+        <div id="withdrawal" style="display: none;">
+            <p>그 동안 이용해주셔서 감사합니다.</p>
+            <input type="button" id="withdrawalBtn"value="회원탈퇴">
+        </div>
+    </div>
+
 </body>
 </html>
