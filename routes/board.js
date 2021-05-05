@@ -26,27 +26,15 @@ const upload = multer({
 router.get('/page/:pageNumber', async(req,res,next)=>{
     const session = req.user;
     const pageNumber = parseInt(req.params.pageNumber);
-    const post = await Board.findAll();
+    const post = await Board.findAll({
+        order : [['createText', 'DESC']]
+    });
     const totalPost = post.length;
     let postCount = pageNumber*10;
     if (postCount > post.length){
         postCount = post.length;
     }
-    const posts = {
-        number : [],
-        title : [],
-        author : [],
-        createText : [],
-        id : [],
-    };
-    for(let i = (pageNumber-1)*10; i<postCount; i++){
-        posts.number.push(i+1);
-        posts.title.push(post[i].title);
-        posts.author.push(post[i].author);
-        posts.createText.push(post[i].createText);
-        posts.id.push(post[i].id);
-    }
-    const data = {posts, session, totalPost}
+    const data = {post, pageNumber, postCount,session, totalPost}
     res.render('board',{data});
 });
 
@@ -242,13 +230,15 @@ router.put('/:id', async (req, res, next)=>{
 
 router.delete('/:id', async (req, res, next)=>{
     try {
-        const img = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
-        fs.unlink(`./public/uploads/${img.uploads}`, (error) => {
-            if(error){
-                console.error(error);
-                return res.redirect('/board/page/1');
-            }
-        })
+        const post = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
+        if(post.uploads){
+            fs.unlink(`./public/uploads/${post.uploads}`, (error) => {
+                if(error){
+                    console.error(error);
+                    return res.redirect('/board/page/1');
+                }
+            })
+        }
         await Board.destroy({ where : {id : req.params.id} });
         return res.redirect('/board/page/1');
     } catch (error) {

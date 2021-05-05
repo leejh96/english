@@ -92,15 +92,18 @@ for(let i = 0; i<commentBtn.length; i++){
     });
 }
 const img = document.querySelector('#img');
-img.addEventListener('click', ()=>{
-    if(img.width === 200){
-        img.width = "400";
-        img.height = "400";
-    }else{
-        img.width = "200";
-        img.height = "200";
-    }
-})
+if(img){
+    img.addEventListener('click', ()=>{
+        if(img.width === 200){
+            img.width = "400";
+            img.height = "400";
+        }else{
+            img.width = "200";
+            img.height = "200";
+        }
+    })
+}
+
 
 // fetch(`/board/${postId}/edit`)
 // .then(res => {

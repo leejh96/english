@@ -32,8 +32,6 @@
                     <td id="postText">
                         <%if(data.post.uploads){%>
                             <img id="img"src="/uploads/<%=data.post.uploads%>" alt="uploads" style="display: block; " width="200" height="200">
-                        <%}else{%>
-                            <img id="img"src="/uploads/<%=data.post.uploads%>" alt="uploads" style="display: none; " width="200" height="200">
                         <%}%>
                         <%=data.post.dataValues.text%>
                     </td>

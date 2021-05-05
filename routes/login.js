@@ -1,8 +1,6 @@
 "use strict";
 
 const express = require('express');
-const { User } = require('../models');
-const bcrypt = require('bcrypt');
 const passport = require('passport');
 const router = express.Router();
 
@@ -18,7 +16,10 @@ router.post('/', (req, res, next) => {
             return next(err);
         }
         if(!user){
-            return res.redirect('/login');
+            return res.json({
+                success : fail.success,
+                message : fail.message
+            });
         }
         //login은 passport가 추가해주는 것
         //이렇게 되면 user의 데이터가 session에 저장되고 앞으로 
@@ -28,7 +29,9 @@ router.post('/', (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.redirect('/');
+            return res.json({
+                success : true
+            });
         });
     })(req, res, next);
 });

@@ -10,7 +10,7 @@ loginButton.addEventListener('click', ()=>{
         return alert('비밀번호를 입력하세요');
     }else{
         const user = {
-            id : id.value,
+            loginId : id.value,
             password : password.value,
         }
         fetch('/login', {

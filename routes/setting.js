@@ -1,7 +1,7 @@
 "use strict";
 const express = require('express');
 const router = express.Router();
-const { User } = require('../models');
+const { User, Board } = require('../models');
 const isLogin = require('../middleware/middleware');
 const bcrypt = require('bcrypt');
 router.use(isLogin);
@@ -62,6 +62,7 @@ router.delete('/signout', async(req, res, next)=>{
     const user = await User.findOne({where : {id : req.user.id}});
     const result = await bcrypt.compare(req.body.password, user.password)
     if(result){
+        await Board.update({author : '알수없음'},{where : { userId : req.user.id}});
         await user.destroy({where : {id : req.user.id}});
         return res.json({
             success : true

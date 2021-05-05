@@ -53,13 +53,13 @@
                 </tr>
             </thead>
             <tbody>
-                <%let count = 1%>
-                <% for(let i = data.posts.number.length-1; i>= 0; i--){ %> 
+                <%let count = (data.pageNumber - 1)*10 + 1%>
+                <% for(let i = (data.pageNumber - 1)* 10; i< data.postCount; i++){ %> 
                     <tr>
-                        <td class="number"><%=count%></td>
-                        <td class="title"><a href="/board/<%=data.posts.id[i]%>"><%=data.posts.title[i]%></a></td>
-                        <td class="author"><%=data.posts.author[i]%></td>
-                        <td class="createText"><%=data.posts.createText[i]%></td>
+                        <td class="number"><%=i+1%></td>
+                        <td class="title"><a href="/board/<%=data.post[i].id%>"><%=data.post[i].title%></a></td>
+                        <td class="author"><%=data.post[i].author%></td>
+                        <td class="createText"><%=data.post[i].createText%></td>
                     </tr>
                     <%count+=1%>
                 <% } %>
