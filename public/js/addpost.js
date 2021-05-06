@@ -2,27 +2,20 @@ const title = document.querySelector('#title');
 const text = document.querySelector('#text');
 const postCreate = document.querySelector('#postCreate');
 const fileBtn = document.querySelector('#fileBtn');
-
+const formData = new FormData();
+const formDataUpload = new FormData();
 postCreate.addEventListener('click', ()=>{
-    filename = fileBtn.files[0].name;
-    console.log(fileBtn.files[0]);
+    let filename = fileBtn.files[0];
     if(!title.value){
         return alert('제목을 입력하세요');
     }
-    if(!text.value){
-        return alert('내용을 입력하세요');
-    }
-    const post = {
-        title : title.value,
-        text : text.value,
-        file : filename
-    };
+
+    formData.append('title', title.value);
+    formData.append('text', text.value)
+    formData.append('file', filename);
     fetch('/board', {
         method : "post",
-        headers : {
-            "Content-Type" : "application/json",
-        },
-        body : JSON.stringify(post)
+        body : formData
     })
     .then(res => res.json())
     .then(res => {
