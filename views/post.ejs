@@ -54,14 +54,12 @@
             </div>
         <%}%>
         <div id="postUpdateForm">
-            <form action="/board/<%=data.post.id%>/edit?_method=put" method="post" enctype="multipart/form-data">
-                <input type="text" id="postUpdatetitle" name="title" placeholder="제목을 입력하세요"autocomplete="off" value="<%=data.post.title%>" required/>
-                <textarea name="text" id="postUpdateText" cols="100" rows="20" placeholder="내용을 입력하세요" required><%=data.post.text%></textarea>
-                <div  id="updateUpload">
-                    <input type="file" name="updateUploadBtn" id="updateUploadBtn">
-                </div>
-                <input type="submit" id ="postEditBtn" value="수정">
-            </form>
+            <input type="text" id="postUpdatetitle" name="title" placeholder="제목을 입력하세요"autocomplete="off" value="<%=data.post.title%>" required/>
+            <textarea name="text" id="postUpdateText" cols="100" rows="20" placeholder="내용을 입력하세요" required><%=data.post.text%></textarea>
+            <div  id="updateUpload">
+                <input type="file" name="updateUploadBtn" id="updateUploadBtn">
+            </div>
+            <input type="button" id ="postEditBtn" value="수정">
         </div> 
     </div>
 

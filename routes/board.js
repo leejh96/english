@@ -173,7 +173,7 @@ router.post('/:id', async(req, res, next)=>{
         return next(error);
     }
 });
-router.put('/:id/edit', upload.single('updateUploadBtn'), async(req, res, next)=>{
+router.put('/:id/edit', upload.single('file'), async(req, res, next)=>{
     try {
         const img = await Board.findOne({where : { id : req.params.id }, attributes : ['uploads']})
         if(img.uploads){
@@ -188,20 +188,24 @@ router.put('/:id/edit', upload.single('updateUploadBtn'), async(req, res, next)=
         if(req.file){
             uploads = req.file.filename;
         }
-        const post = Board.update(
+        const post = await Board.update(
             {
                 title : req.body.title, 
                 text : req.body.text,
                 uploads
             },{
                 where : {id : req.params.id}
-        });
-        if(!post){
+            }
+        );
+        console.log(post[0]);
+        if(post[0] === 0){
             return res.json({
                 success : false
             })
         }
-        return res.redirect(`/board/${req.params.id}`);
+        return res.json({
+            success : true
+        })
     } catch (error) {
         console.error(error);
         next(error);

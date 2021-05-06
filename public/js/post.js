@@ -28,6 +28,7 @@ const postUpdatetitle = document.querySelector('#postUpdatetitle');
 const postUpdateText = document.querySelector('#postUpdateText');
 const postEditBtn = document.querySelector('#postEditBtn');
 const postUpdateForm = document.querySelector('#postUpdateForm');
+const updateUploadBtn = document.querySelector('#updateUploadBtn');
 postUpdateBtn.addEventListener('click',()=>{
     if(postUpdateForm.style.display === 'block'){
         postUpdateForm.style.display = 'none';
@@ -63,7 +64,29 @@ commentTextBtn.addEventListener('click', ()=>{
         })
     }
 });
-
+postEditBtn.addEventListener('click', ()=>{
+    const postId = document.location.pathname.split('/')[2];
+    const formData = new FormData();
+    const file = document.querySelector('#updateUploadBtn').files[0];
+    if(!postUpdatetitle.value){
+        return alert('제목을 입력하세요');
+    }
+    formData.append('title', postUpdatetitle.value);
+    formData.append('text', postUpdateText.value);
+    formData.append('file', file);
+    fetch(`/board/${postId}/edit`, {
+        method : 'put',
+        body : formData
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(!res.success){
+            return alert('에러가 발생했습니다. 다시 시도해주세요');
+        }else{
+            return location.href = `/board/${postId}`
+        }
+    })
+});
 for(let i = 0; i<commentBtn.length; i++){
     commentBtn[i].addEventListener('click', ()=>{
         if(!text[i].value){
