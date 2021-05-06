@@ -25,6 +25,7 @@ router.get('/page/:pageNumber', async(req, res, next) => {
         if (wordCount > word.length){
             wordCount = word.length;
         }
+        let height = (wordCount - (pageNumber-1) * 10)*9 + 10;
         for(let i = (pageNumber-1)*10; i< wordCount; i++){
             words.number.push(i+1);
             words.spelling.push(word[i].updateSpelling);
@@ -32,7 +33,7 @@ router.get('/page/:pageNumber', async(req, res, next) => {
             words.id.push(word[i].wordId);
         }
         const totalWordsCount = word.length;
-        res.render('myword',{session, words, totalWordsCount});
+        res.render('myword',{session, words, height, totalWordsCount});
     } catch (error) {
         console.error(error);
         next(error);

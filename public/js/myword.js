@@ -7,7 +7,10 @@ const meaning = document.querySelectorAll('.meaning');
 const table = document.querySelector('#table');
 const pageNumber = document.location.pathname.split('/')[3];
 const wordCount = document.querySelector('#wordCount');
+const tableHeight = document.querySelector('#tableHeight');
 
+
+table.style.height = `${tableHeight.value}%`;
 searchBtn.addEventListener('click',()=>{
     const lang = koORen.options[koORen.selectedIndex].value
     const text = searchText.value;

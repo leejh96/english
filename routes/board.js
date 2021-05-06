@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const router = express.Router();
 const { Board, Comment, Op } = require('../models');
@@ -47,32 +48,6 @@ router.get('/:id', async(req, res, next)=>{
     const data = {post, session, comment};
     res.render('post', {data});
 });
-
-// router.post("/", upload.single('uploadBtn'), async(req, res, next)=>{
-//     console.log(req.body);
-//     try {
-//         let uploads = null;
-//         if(req.file){
-//             uploads = req.file.filename;
-//         }
-//         const post = await Board.create({
-//             title : req.body.title,
-//             author : req.user.dataValues.nick,
-//             text : req.body.text,
-//             userId : req.user.dataValues.id,
-//             uploads
-//         });
-//         if(post){
-//             return res.redirect('/board/page/1'); 
-//         }
-//         return res.json({
-//             message : '글 작성에 실패했습니다'
-//         })
-//     } catch (error) {
-//         console.error(error);
-//         return next(error);
-//     }
-// });
 router.post("/", upload.single('file'), async(req, res, next)=>{
     try {
         let uploads = null;
