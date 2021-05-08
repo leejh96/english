@@ -124,10 +124,10 @@ router.post('/search', async (req, res, next)=>{
 });
 router.post('/:id', async(req, res, next)=>{
     try {
-        nick = req.user.nick;
-        text = req.body.commentText;
-        loginId = req.user.loginId;
-        boardId = req.params.id;
+        const nick = req.user.nick;
+        const text = req.body.commentText;
+        const loginId = req.user.loginId;
+        const boardId = req.params.id;
         const comment = await Comment.create({
             loginId,
             nick,
